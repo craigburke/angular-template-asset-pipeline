@@ -7,7 +7,7 @@ class AngularTemplateAssetPipelineGrailsPlugin {
     def grailsVersion = "2.0 > *"
 
     def pluginExcludes = [
-        "grails-app/views/error.gsp"
+        "grails-app/assets/**"
     ]
 
     def title = "AngularJS Template Asset-Pipeline Plugin"

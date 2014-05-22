@@ -13,24 +13,24 @@
   <dependencies>
     <test>
       <dependency group='org.seleniumhq.selenium' name='selenium-remote-driver' version='2.34.0' />
-      <dependency group='org.gebish' name='geb-spock' version='0.9.0' />
       <dependency group='org.seleniumhq.selenium' name='selenium-support' version='2.34.0' />
       <dependency group='org.spockframework' name='spock-grails-support' version='0.7-groovy-2.0' />
+      <dependency group='org.gebish' name='geb-spock' version='0.9.0' />
     </test>
   </dependencies>
   <plugins>
     <test>
-      <plugin group='org.grails.plugins' name='geb' version='0.9.0' />
       <plugin group='org.grails.plugins' name='spock' version='0.7' />
+      <plugin group='org.grails.plugins' name='geb' version='0.9.0' />
     </test>
     <compile>
-      <plugin group='org.grails.plugins' name='shiro' version='1.1.4' />
       <plugin group='org.grails.plugins' name='cache' version='1.0.1' />
+      <plugin group='org.grails.plugins' name='shiro' version='1.1.4' />
       <plugin group='org.grails.plugins' name='asset-pipeline' version='1.8.3' />
     </compile>
     <runtime>
-      <plugin group='org.grails.plugins' name='database-migration' version='1.2.1' />
       <plugin group='org.grails.plugins' name='hibernate' version='2.2.2' />
+      <plugin group='org.grails.plugins' name='database-migration' version='1.2.1' />
     </runtime>
     <build>
       <plugin group='org.grails.plugins' name='tomcat' version='2.2.2' />
