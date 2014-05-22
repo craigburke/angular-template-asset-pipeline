@@ -1,6 +1,7 @@
 package com.craigburke.angular
 
 import geb.spock.GebReportingSpec
+import spock.lang.Unroll
 
 class TemplateProcessorFunctionalSpec extends GebReportingSpec {
 
@@ -15,6 +16,7 @@ class TemplateProcessorFunctionalSpec extends GebReportingSpec {
         pageTitle == "Test1"
     }
 
+    @Unroll("load template: #template")
     def "load different templates"() {
         when:
         to AngularTestPage
@@ -23,18 +25,19 @@ class TemplateProcessorFunctionalSpec extends GebReportingSpec {
         templateSelect = template
 
         then:
-        pageTitle == title
+        waitFor {
+            pageTitle == title
+            directiveText == "I'm a directive!"
+        }
 
         and:
-        directiveText == "I'm a directive"
 
         where:
         template        || title
-        'test1.html'    || "Test1"
+        'test1.html'     || "Test1"
         'test2.html'    || "Test2"
         'test3.html'    || "Test3"
     }
-
 
 
 }

@@ -11,9 +11,9 @@ class AngularTestPage extends Page {
     }
 
     static content = {
-        pageTitle { $("h1").text() }
-        directiveText { $("#directive").text() }
-        templateSelect { $("#templateSelect") }
+        pageTitle(wait: true) { $("h1").text() }
+        directiveText(wait: true) { $("#directive").text() }
+        templateSelect(wait: true) { $("#templateSelect") }
 
     }
 

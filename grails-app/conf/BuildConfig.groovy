@@ -26,11 +26,9 @@ grails.project.dependency.resolution = {
         test "org.gebish:geb-spock:$gebVersion"
 
         test "org.seleniumhq.selenium:selenium-remote-driver:$seleniumVersion"
-        test( "com.github.detro.ghostdriver:phantomjsdriver:1.0.3" ) {
-            transitive = false
-        }
         test "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
 
+        compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
     }
     plugins {
         runtime ":asset-pipeline:1.8.4"

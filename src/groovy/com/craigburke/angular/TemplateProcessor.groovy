@@ -3,6 +3,8 @@ package com.craigburke.angular
 import asset.pipeline.AbstractProcessor
 import asset.pipeline.AssetCompiler
 import grails.util.Holders
+import com.googlecode.htmlcompressor.compressor.HtmlCompressor
+
 
 class TemplateProcessor extends AbstractProcessor {
 
@@ -33,8 +35,8 @@ class TemplateProcessor extends AbstractProcessor {
         html = html.replace("'", "\\'")
 
         if (compressHtml) {
-            // Compress that shit
-            html = html.replace("\n", " \\\n")
+            HtmlCompressor compressor = new HtmlCompressor()
+            html = compressor.compress(html)
         }
         else {
             html = html.replace("\n", " \\\n")
