@@ -45,15 +45,14 @@ Here's an example of how you might use this plugin in a project.
 //= require_self
 //= require_tree my-app/app-section/
 
-var appSection = angular.module('myApp.appSection', ['ngRoute']);
-
-appSection.config(function($routeProvider) {
-      $routeProvider
-          .when('/index', {
-              templateUrl: 'index.htm'
-          })
-          .otherwise({redirectTo: '/index'});
-});
+angular.module('myApp.appSection', ['ngRoute'])
+	.config(function($routeProvider) {
+	      $routeProvider
+	          .when('/index', {
+	              templateUrl: 'index.htm'
+	          })
+	          .otherwise({redirectTo: '/index'});
+	});
 ```
 Note the use of **require_self** above to make sure that the **myApp.appSection** module is defined before the template files are imported.
 
