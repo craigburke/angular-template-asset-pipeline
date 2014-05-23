@@ -5,13 +5,13 @@ The Grails `angular-template-asset-pipeline` is a plugin that provides angular t
 For more information on how to use asset-pipeline, visit [here](http://www.github.com/bertramdev/asset-pipeline).
 
 ## Getting started
-1. Add the plugin to your **BuildConfig.groovy**:
+Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
 		runtime ":angular-template-asset-pipeline:0.9.0"
 }
 ```
-1. Make sure your templates all have the file extension **.tpl.htm** or **.tpl.html**
+Make sure your templates all have the file extension **.tpl.htm** or **.tpl.html**
 
 
 ## How it works
@@ -48,7 +48,7 @@ var appSection = angular.module('myApp.appSection', ['ngRoute']);
 appSection.config(function($routeProvider) {
       $routeProvider
           .when('/index', {
-              templateUrl: 'index.html'
+              templateUrl: 'index.htm'
           })
           .otherwise({redirectTo: '/index'});
 });
