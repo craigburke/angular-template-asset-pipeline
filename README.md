@@ -13,7 +13,7 @@ plugins {
 		runtime ":angular-template-asset-pipeline:1.0"
 }
 ```
-Make sure your templates all contained within the **assets/templates** folder and have the file extension **.tpl.htm** or **.tpl.html**
+Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm** or **.tpl.html**
 
 
 ## How it works
@@ -27,7 +27,7 @@ For example a file located at
 /grails-app/assets/templates/my-app/app-section/index.tpl.htm
 ```
 
-Will generate the javascript like the following:
+Will generate javascript like this:
 ```javascript
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
 	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
