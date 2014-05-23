@@ -18,9 +18,11 @@ class TemplateProcessor extends AbstractProcessor {
         def config = Holders.grailsApplication?.config
 
         String moduleSeparator  = config?.grails?.assets?.angular?.moduleSeparator ?: '.'
+        String templateRoot = config?.grails?.assets?.angular?.templateRoot ?: 'templates'
         boolean compressHtml = config?.grails?.assets?.angular?.compressHtml ?: true
 
-        String moduleName = getModuleName(file.absolutePath, moduleSeparator)
+
+        String moduleName = getModuleName(file.absolutePath, templateRoot, moduleSeparator)
         String templateName = file.name.replace('.tpl', '')
         String content = formatHtml(input, compressHtml)
 
@@ -45,13 +47,12 @@ class TemplateProcessor extends AbstractProcessor {
         html
     }
 
-    static String getModuleName(String filePath, String moduleSeparator) {
+    static String getModuleName(String filePath, String templateRoot, String moduleSeparator) {
         String assetRoot = filePath.split('/grails-app/assets/').last()
         def pathParts = assetRoot.tokenize('/')
 
-        String rootFolder = pathParts.size() == 1 ? "" : pathParts.first()
         String fileName = pathParts.last()
-        String relativePath = (assetRoot - rootFolder - fileName)
+        String relativePath = (assetRoot - templateRoot - fileName)
 
         def moduleParts = relativePath.tokenize('/').collect { toCamelCase it }
 

@@ -30,15 +30,19 @@ class TemplateProcessorUnitSpec extends Specification {
     @Unroll("covert path: #path to module name")
     def "convert path to module name"() {
         expect:
-        TemplateProcessor.getModuleName(path, separator) == result
+        TemplateProcessor.getModuleName(path, templateRoot, separator) == result
 
         where:
-        path                                                                        | separator  || result
-        "${ASSET_PATH}/templates/my-app/foo.html"                                   | '.'        || 'myApp'
-        "${ASSET_PATH}/templates/my-app/super-COOL-directives/foo.html"             | '.'        || 'myApp.superCoolDirectives'
-        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | '.'        || 'fooBar1.fooBar2.fooBar3.fooBar4'
-        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | '*'        || 'fooBar1*fooBar2*fooBar3*fooBar4'
-        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | '|'        || 'fooBar1|fooBar2|fooBar3|fooBar4'
+        path                                                                        | templateRoot | separator  || result
+        "${ASSET_PATH}/templates/my-app/foo.html"                                   | 'templates'  |  '.'       || 'myApp'
+        "${ASSET_PATH}/templates/my-app/foo.html"                                   | ''           |  '.'       || 'templates.myApp'
+        "${ASSET_PATH}/templates/my-app/super-COOL-directives/foo.html"             | 'templates'  |  '.'       || 'myApp.superCoolDirectives'
+        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | 'templates'  |  '.'       || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | 'templates'  |  '*'       ||'fooBar1*fooBar2*fooBar3*fooBar4'
+        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | 'templates'  |  '|'       || 'fooBar1|fooBar2|fooBar3|fooBar4'
+        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  | 'templates'  |  '|'       || 'fooBar1|fooBar2|fooBar3|fooBar4'
+
+
     }
 
     @Unroll("processing HTML: #input")

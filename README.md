@@ -56,13 +56,14 @@ appSection.config(function($routeProvider) {
 Note the use of **require_self** above to make sure that the **myApp.appSection** module is defined before the template files are imported.
 
 ## Configuration
-You can change the module separator character or disable the compression of your HTML templates in your **Config.groovy** file:
+You can change the template root folder, module separator character or disable the compression of your HTML templates in your **Config.groovy**:
 ```groovy
 grails {
 	assets {
 		angular {
-			compressHtml = false
-			moduleSeparator = "*"
+			templateRoot = "templates"
+			compressHtml = true
+			moduleSeparator = "."
 		}
 	}
 }
