@@ -5,10 +5,10 @@ The Grails `angular-template-asset-pipeline` is a plugin that provides angular t
 For more information on how to use asset-pipeline, visit [here](http://www.github.com/bertramdev/asset-pipeline).
 
 ## Getting started
-1. Add the plugin to your BuildConfig:
+1. Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-	runtime ":angular-template-asset-pipeline:0.9.0"
+		runtime ":angular-template-asset-pipeline:0.9.0"
 }
 ```
 1. Make sure your templates all have the file extension **.tpl.htm** or **.tpl.html**
@@ -16,17 +16,19 @@ plugins {
 
 ## How it works
 
-This plugin inserts the HTML in your template files into AngularJs's $templateCache.
+This plugin inserts the compressed contents of your template files into AngularJs's $templateCache.
 Both the template name and module are determined by the file name and location.
 
 For example a file located at
 
-**/grails-app/assets/templates/my-app/app-section/index.tpl.htm**
+```
+/grails-app/assets/templates/my-app/app-section/index.tpl.htm
+```
 
 Will generate the javascript like the following:
 ```javascript
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
-	$templateCache.put('index.htm', '<!-- contents -->');
+	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
 }]);
 ```
 This allows you to reference your template by just using the file name (without the .tpl).
