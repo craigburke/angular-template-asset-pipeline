@@ -37,7 +37,9 @@ grails.project.dependency.resolution = {
         compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
     }
     plugins {
-        runtime ":asset-pipeline:1.8.4"
+        runtime(":asset-pipeline:1.8.4") {
+            export = false
+        }
 
         build(":release:3.0.1",
               ":rest-client-builder:1.0.3",
