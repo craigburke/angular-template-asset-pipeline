@@ -43,7 +43,7 @@ Here's an example of how you might use this plugin in a project.
 //= require angular/angular.min.js
 //= require angular/angular-route.min.js
 //= require_self
-//= require_tree my-app/app-section/
+//= require_full_tree my-app/app-section/
 
 angular.module('myApp.appSection', ['ngRoute'])
 	.config(function($routeProvider) {
