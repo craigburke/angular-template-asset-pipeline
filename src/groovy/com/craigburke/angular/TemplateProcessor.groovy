@@ -20,11 +20,12 @@ class TemplateProcessor extends AbstractProcessor {
         String moduleSeparator  = config?.grails?.assets?.angular?.moduleSeparator ?: '.'
         String templateRoot = config?.grails?.assets?.angular?.templateRoot ?: 'templates'
         boolean compressHtml = config?.grails?.assets?.angular?.compressHtml ?: true
+        boolean preserveHtmlComments = config?.grails?.assets?.angular?.preserveHtmlComments ?: false
 
 
         String moduleName = getModuleName(file.absolutePath, templateRoot, moduleSeparator)
         String templateName = file.name.replace('.tpl', '')
-        String content = formatHtml(input, compressHtml)
+        String content = formatHtml(input, compressHtml, preserveHtmlComments)
 
         return """
             angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
@@ -33,11 +34,16 @@ class TemplateProcessor extends AbstractProcessor {
         """
     }
 
-    static String formatHtml(html, boolean compressHtml) {
+    static String formatHtml(html, boolean compressHtml, boolean preserveHtmlComments) {
         html = html.replace("'", "\\'")
 
         if (compressHtml) {
             HtmlCompressor compressor = new HtmlCompressor()
+
+            if (preserveHtmlComments) {
+                compressor.setRemoveComments(false)
+            }
+
             html = compressor.compress(html)
         }
         else {

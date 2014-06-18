@@ -57,14 +57,16 @@ angular.module('myApp.appSection', ['ngRoute'])
 Note the use of **require_self** above to make sure that the **myApp.appSection** module is defined before the template files are imported.
 
 ## Configuration
-You can change the template root folder, module separator character or disable the compression of your HTML templates in your **Config.groovy**:
+You can change the template root folder, module separator character, disable the compression of your HTML templates, or preserve Html comments in your **Config.groovy**:
 ```groovy
 grails {
 	assets {
 		angular {
+			// Defaults
 			templateRoot = "templates"
-			compressHtml = true
 			moduleSeparator = "."
+                        compressHtml = true
+			preserveHtmlComments = false
 		}
 	}
 }
