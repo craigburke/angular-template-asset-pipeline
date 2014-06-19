@@ -65,7 +65,7 @@ grails {
 			// Defaults
 			templateRoot = "templates"
 			moduleSeparator = "."
-                        compressHtml = true
+			compressHtml = true
 			preserveHtmlComments = false
 		}
 	}
