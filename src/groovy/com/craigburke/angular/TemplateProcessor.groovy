@@ -23,7 +23,7 @@ class TemplateProcessor extends AbstractProcessor {
         boolean preserveHtmlComments = config?.grails?.assets?.angular?.preserveHtmlComments ?: false
 
 
-        String moduleName = getModuleName(file.absolutePath, templateRoot, moduleSeparator)
+        String moduleName = getModuleName(file, templateRoot, moduleSeparator)
         String templateName = file.name.replace('.tpl', '')
         String content = formatHtml(input, compressHtml, preserveHtmlComments)
 
@@ -53,16 +53,12 @@ class TemplateProcessor extends AbstractProcessor {
         html
     }
 
-    static String getModuleName(String filePath, String templateRoot, String moduleSeparator) {
-        String assetRoot = filePath.split('/grails-app/assets/').last()
-        def pathParts = assetRoot.tokenize('/')
+    static String getModuleName(File file, String templateRoot, String moduleSeparator) {
+        def pathParts = file.path.tokenize(File.separator)
+        int assetRootIndex = pathParts.indexOf('grails-app') + 1
+        def relativePathParts = pathParts[assetRootIndex + 1..pathParts.size() - 1] - file.name - templateRoot
 
-        String fileName = pathParts.last()
-        String relativePath = (assetRoot - templateRoot - fileName)
-
-        def moduleParts = relativePath.tokenize('/').collect { toCamelCase it }
-
-        moduleParts.join(moduleSeparator)
+        relativePathParts.collect { toCamelCase it }.join(moduleSeparator)
     }
 
     static String toCamelCase(String input) {

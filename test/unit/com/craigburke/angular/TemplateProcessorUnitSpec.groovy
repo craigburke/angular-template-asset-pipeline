@@ -30,7 +30,7 @@ class TemplateProcessorUnitSpec extends Specification {
     @Unroll("covert path: #path to module name")
     def "convert path to module name"() {
         expect:
-        TemplateProcessor.getModuleName(path, templateRoot, separator) == result
+        TemplateProcessor.getModuleName(new File(path), templateRoot, separator) == result
 
         where:
         path                                                                        | templateRoot | separator  || result
