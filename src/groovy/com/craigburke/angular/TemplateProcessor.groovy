@@ -11,7 +11,7 @@ class TemplateProcessor {
     GroovyPagesTemplateEngine templateEngine
 
     TemplateProcessor(AssetCompiler precompiler) {
-        templateEngine = Holders.grailsApplication.mainContext.getBean('groovyPagesTemplateEngine')
+        templateEngine = Holders.grailsApplication?.mainContext?.getBean('groovyPagesTemplateEngine')
     }
 
     def process(input, assetFile) {
