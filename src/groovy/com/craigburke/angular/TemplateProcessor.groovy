@@ -1,15 +1,17 @@
 package com.craigburke.angular
 
-import asset.pipeline.AbstractProcessor
 import asset.pipeline.AssetCompiler
-import grails.util.Holders
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
+import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
+import grails.util.Holders
+import java.security.MessageDigest
 
+class TemplateProcessor {
 
-class TemplateProcessor extends AbstractProcessor {
+    GroovyPagesTemplateEngine templateEngine
 
     TemplateProcessor(AssetCompiler precompiler) {
-        super(precompiler)
+        templateEngine = Holders.grailsApplication.mainContext.getBean('groovyPagesTemplateEngine')
     }
 
     def process(input, assetFile) {
@@ -22,10 +24,12 @@ class TemplateProcessor extends AbstractProcessor {
         boolean compressHtml = config?.grails?.assets?.angular?.compressHtml ?: true
         boolean preserveHtmlComments = config?.grails?.assets?.angular?.preserveHtmlComments ?: false
 
+        String templateName = file.name.replace('.tpl', '').replace('.gsp', '.html')
+
+        String html = file.name.endsWith('.gsp') ? renderGsp(input.toString()) : input.toString()
 
         String moduleName = getModuleName(file, templateRoot, moduleSeparator)
-        String templateName = file.name.replace('.tpl', '')
-        String content = formatHtml(input, compressHtml, preserveHtmlComments)
+        String content = formatHtml(html, compressHtml, preserveHtmlComments)
 
         return """
             angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
@@ -34,7 +38,20 @@ class TemplateProcessor extends AbstractProcessor {
         """
     }
 
-    static String formatHtml(html, boolean compressHtml, boolean preserveHtmlComments) {
+    private String renderGsp(String html) {
+        StringWriter writer = new StringWriter()
+
+        Formatter hexHash = new Formatter()
+        MessageDigest.getInstance("SHA-1").digest(html.bytes).each {
+            b -> hexHash.format('%02x', b)
+        }
+
+        String templateName = "angular-template-${hexHash}"
+        templateEngine.createTemplate(html, templateName).make().writeTo(writer)
+        writer.toString()
+    }
+
+    static String formatHtml(String html, boolean compressHtml, boolean preserveHtmlComments) {
         html = html.replace("'", "\\'")
 
         if (compressHtml) {

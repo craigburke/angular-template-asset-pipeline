@@ -34,9 +34,10 @@ class TemplateProcessorFunctionalSpec extends GebReportingSpec {
 
         where:
         template        || title
-        'test1.html'     || "Test1"
+        'test1.html'    || "Test1"
         'test2.html'    || "Test2"
         'test3.html'    || "Test3"
+        'test4.html'    || "Test4"
     }
 
 
