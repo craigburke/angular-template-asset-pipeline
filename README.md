@@ -10,11 +10,27 @@ For more information on how to use asset-pipeline, visit [here](http://www.githu
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-		runtime ":angular-template-asset-pipeline:1.1.0"
+		runtime ":angular-template-asset-pipeline:1.2.0"
 }
 ```
-Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm** or **.tpl.html**
+Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm**, **.tpl.html** or **tpl.gsp**
 
+## Templates
+
+Any templates with a **tpl.htm** or **tpl.html** extension will be treated as normal static HTML.
+
+Any templates with the **tpl.gsp** extension are interpreted just like normal Groovy Server Pages and can
+be accessed in your Javascript by the **.html** extension. For example, index.tpl.gsp can be accessed as 
+simply index.html.
+
+You can use all the typical GSP tags in these templates, meaning that plugins like the excellent [Fields Plugin](https://github.com/gpc/grails-fields) will work here.
+
+One potential gotcha is that that these GSP templates are just used to generate static HTML and won't change on subsequent requests. For example:
+
+```html
+<!-- This won't work as expected. The time will never change -->
+<p>The current time is: <%= new Date() %></p>
+```
 
 ## How it works
 
