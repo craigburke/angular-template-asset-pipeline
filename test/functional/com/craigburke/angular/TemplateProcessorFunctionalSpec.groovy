@@ -5,21 +5,10 @@ import spock.lang.Unroll
 
 class TemplateProcessorFunctionalSpec extends GebReportingSpec {
 
-    def "go the test page"() {
-        when:
-        to AngularTestPage
-
-        then:
-        at AngularTestPage
-
-        and:
-        pageTitle == "Test1"
-    }
-
     @Unroll("load template: #template")
-    def "load different templates"() {
+    def "load a page with a directive"() {
         when:
-        to AngularTestPage
+        to DirectiveTestPage
 
         and:
         templateSelect = template
@@ -40,5 +29,18 @@ class TemplateProcessorFunctionalSpec extends GebReportingSpec {
         'test4.html'    || "Test4"
     }
 
+
+    def "field plugin integration"() {
+        when:
+        to FieldsTestPage
+
+        and:
+        name = "Foo"
+        number = "33"
+
+        then:
+        nameValue == "Foo"
+        numberValue == "33"
+    }
 
 }

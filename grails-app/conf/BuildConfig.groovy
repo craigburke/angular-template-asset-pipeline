@@ -10,7 +10,7 @@ grails.project.dependency.resolution = {
     legacyResolve false
 
     String gebVersion = '0.9.2'
-    String seleniumVersion = '2.39.0'
+    String seleniumVersion = '2.42.2'
     String spockVersion = '0.7'
 
     repositories {
@@ -31,7 +31,7 @@ grails.project.dependency.resolution = {
         compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
     }
     plugins {
-        runtime(":asset-pipeline:1.8.4") {
+        runtime(":asset-pipeline:1.8.11", ":fields:1.3", ":scaffolding:2.1.2") {
             export = false
         }
 

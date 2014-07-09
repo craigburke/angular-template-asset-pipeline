@@ -2,12 +2,12 @@ package com.craigburke.angular
 
 import geb.Page
 
-class AngularTestPage extends Page {
+class DirectiveTestPage extends Page {
 
-    static url = ""
+    static url = "directives"
 
     static at = {
-        title ==~ /Angular Test Page/
+        title ==~ /Directives Test/
     }
 
     static content = {

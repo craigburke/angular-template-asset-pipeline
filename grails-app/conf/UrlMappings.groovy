@@ -1,6 +1,8 @@
 class UrlMappings {
 
 	static mappings = {
-		"/"(view:"/index")
-	}
+        "/"(view:"/index")
+        "/directives"(view:"/directives")
+        "/fields"(view:"/fields")
+    }
 }

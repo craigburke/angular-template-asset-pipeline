@@ -1,15 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Angular Test Page</title>
-    <asset:javascript src="app.js" />
+    <title></title>
 </head>
 
-<body ng-app="myApp" ng-init="template = 'test1.html'">
+<body>
+    <ul>
+        <li><g:link uri="/directives">Directives Test Page</g:link></li>
+        <li><g:link uri="/fields">Fields Test Page</g:link></li>
+    </ul>
 
-    <select id="templateSelect" ng-model="template" ng-options="t as t for t in ['test1.html', 'test2.html', 'test3.html', 'test4.html']" ></select>
-
-    <ng-include src="template" ></ng-include>
 
 </body>
 </html>
