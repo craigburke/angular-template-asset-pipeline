@@ -19,7 +19,7 @@ Make sure your templates are contained within the **assets/templates** folder an
 
 Any templates with a **tpl.htm** or **tpl.html** extension will be treated as normal static HTML.
 
-Any templates with a **tpl.gsp** extension supports GSP expressions (not all standard tags) as well as the **f:with** and **f:field** tags if you have the [Fields Plugin](http://grails.org/plugin/fields) installed. For example you can use it like so:
+Any templates with a **tpl.gsp** extension supports inline Groovy expressions (not all g tags are currently supported). The **f:with** and **f:field** tags are supported if you have the [Fields Plugin](http://grails.org/plugin/fields) installed. For example you can use it like so:
 ```html
 <%@ Page import="com.craigburke.Book" %>
 <f:with bean="${new Book()}">
