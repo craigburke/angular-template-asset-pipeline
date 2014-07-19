@@ -31,7 +31,7 @@ grails.project.dependency.resolution = {
         compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
     }
     plugins {
-        runtime(":asset-pipeline:1.8.11", ":fields:1.3", ":scaffolding:2.1.2") {
+        runtime(":asset-pipeline:1.9.2", ":fields:1.3", ":scaffolding:2.1.2") {
             export = false
         }
 

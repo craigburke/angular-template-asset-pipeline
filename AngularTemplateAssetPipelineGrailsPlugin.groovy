@@ -1,9 +1,11 @@
+import asset.pipeline.AssetCompiler
 import asset.pipeline.AssetHelper
-import com.craigburke.angular.TemplateAssetFile
+import com.craigburke.angular.GspTemplateAssetFile
+import com.craigburke.angular.HtmlTemplateAssetFile
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
-    def version = "1.2.0"
+    def version = "1.2.1"
     def grailsVersion = "2.0 > *"
 
     def pluginExcludes = [
@@ -21,7 +23,9 @@ class AngularTemplateAssetPipelineGrailsPlugin {
     def scm = [ url: "http://github.com/craigburke/angular-template-asset-pipeline" ]
 
     def doWithDynamicMethods = { ctx ->
-        AssetHelper.assetSpecs << TemplateAssetFile
+        AssetHelper.assetSpecs << HtmlTemplateAssetFile
+        AssetHelper.assetSpecs << GspTemplateAssetFile
     }
+
 
 }

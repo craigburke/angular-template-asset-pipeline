@@ -1,11 +1,11 @@
-<%@ page import="angular.template.asset.pipeline.Foo" %>
+<%@ page import="com.craigburke.angular.Foo" %>
 <div>
     <h1>Field Test</h1>
 
     <form>
     <f:with bean="${new Foo()}" >
-        <f:field property="name" input-ng-model="foo.name" ></f:field>
-        <f:field property="number" input-ng-model="foo.number"></f:field>
+        <f:field property="name" input-ng-model="foo.name" />
+        <f:field property="number" input-ng-model="foo.number"/>
     </f:with>
     </form>
 

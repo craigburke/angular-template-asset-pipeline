@@ -1,4 +1,4 @@
-package angular.template.asset.pipeline
+package com.craigburke.angular
 
 class Foo {
 
