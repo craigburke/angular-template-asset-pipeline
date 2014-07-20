@@ -20,6 +20,7 @@ import org.codehaus.groovy.grails.web.pages.TagLibraryLookup
 import org.codehaus.groovy.grails.web.pages.discovery.GrailsConventionGroovyPageLocator
 import org.springframework.context.ApplicationContext
 import org.codehaus.groovy.grails.commons.TagLibArtefactHandler
+import org.springframework.web.context.request.RequestContextHolder
 
 import static com.craigburke.angular.TemplateProcessorUtil.*
 
@@ -28,18 +29,25 @@ class GspTemplateProcessor {
     GroovyPagesTemplateEngine templateEngine
 
     GspTemplateProcessor(AssetCompiler precompiler) {
-        def appContext = Holders.grailsApplication?.mainContext
-
-            if (!appContext?.containsBean('groovyPagesTemplateEngine')) {
-                appContext = createApplicationContext()
-        }
-
-        templateEngine = appContext.getBean('groovyPagesTemplateEngine')
+        loadTemplateEngine()
     }
 
-    private ApplicationContext createApplicationContext() {
-        def applicationContext
+    private def loadTemplateEngine() {
+        def previousRequest = RequestContextHolder.requestAttributes
+
         def request = GrailsWebUtil.bindMockWebRequest()
+        def appContext = createApplicationContext(request)
+
+        templateEngine = appContext.getBean('groovyPagesTemplateEngine')
+
+        if (previousRequest) {
+            RequestContextHolder.requestAttributes = previousRequest
+        }
+    }
+
+
+    private ApplicationContext createApplicationContext(def request) {
+        def applicationContext
 
         def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, ApplicationTagLib]
         boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == "fields" }
