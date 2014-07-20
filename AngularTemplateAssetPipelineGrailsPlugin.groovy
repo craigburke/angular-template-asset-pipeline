@@ -5,11 +5,13 @@ import com.craigburke.angular.HtmlTemplateAssetFile
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
-    def version = "1.2.1"
+    def version = "1.2.2"
     def grailsVersion = "2.0 > *"
 
     def pluginExcludes = [
-        "grails-app/assets/**"
+        "grails-app/assets/**",
+        "grails-app/domain/**",
+        "grails-app/views/**"
     ]
 
     def title = "AngularJS Template Asset-Pipeline Plugin"

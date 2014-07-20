@@ -42,7 +42,7 @@ class GspTemplateProcessor {
         def request = GrailsWebUtil.bindMockWebRequest()
 
         def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, ApplicationTagLib]
-        boolean fieldsPlugin = Holders.getPluginManager()?.allPlugins?.find {it.name == "fields"}
+        boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == "fields" }
         if (fieldsPlugin) {
             tagLibs << Class.forName("grails.plugin.formfields.FormFieldsTagLib")
         }
