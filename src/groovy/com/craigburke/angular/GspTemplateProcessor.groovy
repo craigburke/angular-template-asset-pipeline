@@ -11,7 +11,6 @@ import org.codehaus.groovy.grails.commons.metaclass.MetaClassEnhancer
 import org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager
 import org.codehaus.groovy.grails.plugins.codecs.StandaloneCodecLookup
 import org.codehaus.groovy.grails.plugins.web.api.TagLibraryApi
-import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.FormatTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib
@@ -56,7 +55,7 @@ class GspTemplateProcessor {
     private ApplicationContext createApplicationContext(GrailsWebRequest request) {
         def applicationContext
 
-        def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, RenderTagLib, ApplicationTagLib]
+        def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, RenderTagLib]
         boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == 'fields' }
         if (fieldsPlugin) {
             tagLibs << Class.forName('grails.plugin.formfields.FormFieldsTagLib')
