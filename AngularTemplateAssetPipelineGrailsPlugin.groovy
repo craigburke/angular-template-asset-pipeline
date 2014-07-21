@@ -24,6 +24,8 @@ class AngularTemplateAssetPipelineGrailsPlugin {
     def issueManagement = [ system: "GITHUB", url: "http://github.com/craigburke/angular-template-asset-pipeline/issues" ]
     def scm = [ url: "http://github.com/craigburke/angular-template-asset-pipeline" ]
 
+    def loadAfter = ['fields']
+
     def doWithDynamicMethods = { ctx ->
         AssetHelper.assetSpecs << HtmlTemplateAssetFile
         AssetHelper.assetSpecs << GspTemplateAssetFile

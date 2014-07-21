@@ -8,18 +8,25 @@ import org.codehaus.groovy.grails.commons.DefaultGrailsApplication
 import org.codehaus.groovy.grails.commons.GrailsMetaClassUtils
 import org.codehaus.groovy.grails.commons.GrailsTagLibClass
 import org.codehaus.groovy.grails.commons.metaclass.MetaClassEnhancer
+import org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager
+import org.codehaus.groovy.grails.plugins.codecs.StandaloneCodecLookup
 import org.codehaus.groovy.grails.plugins.web.api.TagLibraryApi
 import org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.FormTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.FormatTagLib
+import org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib
 import org.codehaus.groovy.grails.plugins.web.taglib.ValidationTagLib
 import org.codehaus.groovy.grails.support.proxy.DefaultProxyHandler
 import org.codehaus.groovy.grails.validation.DefaultConstraintEvaluator
+import org.codehaus.groovy.grails.web.pages.GroovyPageResourceLoader
 import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
+import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateRenderer
 import org.codehaus.groovy.grails.web.pages.TagLibraryLookup
 import org.codehaus.groovy.grails.web.pages.discovery.GrailsConventionGroovyPageLocator
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.context.ApplicationContext
 import org.codehaus.groovy.grails.commons.TagLibArtefactHandler
+import org.springframework.core.io.FileSystemResource
 import org.springframework.web.context.request.RequestContextHolder
 
 import static com.craigburke.angular.TemplateProcessorUtil.*
@@ -46,18 +53,20 @@ class GspTemplateProcessor {
     }
 
 
-    private ApplicationContext createApplicationContext(def request) {
+    private ApplicationContext createApplicationContext(GrailsWebRequest request) {
         def applicationContext
 
-        def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, ApplicationTagLib]
-        boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == "fields" }
+        def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, RenderTagLib, ApplicationTagLib]
+        boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == 'fields' }
         if (fieldsPlugin) {
-            tagLibs << Class.forName("grails.plugin.formfields.FormFieldsTagLib")
+            tagLibs << Class.forName('grails.plugin.formfields.FormFieldsTagLib')
         }
 
-        def bb = new BeanBuilder(request.applicationContext)
-        bb.beans {
-            grailsApplication(DefaultGrailsApplication)
+        String appRoot = request.servletContext.getRealPath('/').split('target/').first()
+
+        def beanBuilder = new BeanBuilder()
+        beanBuilder.beans {
+            grailsApplication(DefaultGrailsApplication) { bean -> bean.autowire }
             gspTagLibraryLookup(TagLibraryLookup) { bean -> bean.autowire = true }
             groovyPagesTemplateEngine(GroovyPagesTemplateEngine, request.servletContext) {
                 classLoader = GspTemplateProcessor.classLoader
@@ -65,34 +74,40 @@ class GspTemplateProcessor {
             }
             instanceTagLibraryApi(TagLibraryApi) { bean -> bean.autowire = true }
 
+            tagLibs.each { tagLibClass ->
+                "${tagLibClass.name}"(tagLibClass) { bean -> bean.autowire = true }
+            }
+
             if (fieldsPlugin) {
+                pluginManager(DefaultGrailsPluginManager, null, ref('grailsApplication')) { bean -> bean.autowire = true }
+                groovyPageResourceLoader(GroovyPageResourceLoader) {
+                    baseResource = new FileSystemResource(appRoot)
+                }
+                groovyPagesTemplateRenderer(GroovyPagesTemplateRenderer) { bean -> bean.autowire = true }
+                codecLookup(StandaloneCodecLookup)
                 groovyPageLocator(GrailsConventionGroovyPageLocator) { bean -> bean.autowire = true }
                 formFieldsTemplateService(Class.forName('grails.plugin.formfields.FormFieldsTemplateService')) { bean -> bean.autowire = true }
                 constraintsEvaluator(DefaultConstraintEvaluator)
                 proxyHandler(DefaultProxyHandler)
-                beanPropertyAccessorFactory(Class.forName('grails.plugin.formfields.BeanPropertyAccessorFactory')) {
-                    grailsApplication = ref('grailsApplication')
-                    constraintsEvaluator = ref('constraintsEvaluator')
-                    proxyHandler = ref('proxyHandler')
-                }
-            }
-
-            tagLibs.each { tagLibClass ->
-                "${tagLibClass.name}"(tagLibClass) { bean -> bean.autowire = true }
+                beanPropertyAccessorFactory(Class.forName('grails.plugin.formfields.BeanPropertyAccessorFactory')) { bean -> bean.autowire = true }
             }
         }
 
-        applicationContext = bb.createApplicationContext()
+        applicationContext = beanBuilder.createApplicationContext()
 
-        TagLibraryApi instanceTagLibraryApi = applicationContext.getBean('instanceTagLibraryApi')
-        TagLibraryLookup tagLookup =  applicationContext.getBean('gspTagLibraryLookup')
+        if (fieldsPlugin) {
+            def groovyPageLocator = applicationContext.getBean('groovyPageLocator')
+            groovyPageLocator.addResourceLoader(applicationContext.getBean('groovyPageResourceLoader'))
+        }
 
+        def instanceTagLibraryApi = applicationContext.getBean('instanceTagLibraryApi')
+        def tagLookup =  applicationContext.getBean('gspTagLibraryLookup')
         tagLibs.each { tagLibClass -> registerTagLib(tagLibClass, tagLookup, instanceTagLibraryApi) }
 
         applicationContext
     }
 
-    private def registerTagLib(def tagLibClass, TagLibraryLookup tagLookup, TagLibraryApi instanceTagLibraryApi) {
+    private def registerTagLib(def tagLibClass, def tagLookup, def instanceTagLibraryApi) {
         GrailsTagLibClass tagLib = Holders.grailsApplication.addArtefact(TagLibArtefactHandler.TYPE, tagLibClass)
 
         MetaClassEnhancer enhancer = new MetaClassEnhancer()
