@@ -41,12 +41,12 @@ class GspTemplateProcessor {
     private def loadTemplateEngine() {
         def appContext = Holders.grailsApplication?.mainContext
 
-        if (!appContext) {
+        if (!appContext?.containsBean('groovyPagesTemplateEngine')) {
             def request = GrailsWebUtil.bindMockWebRequest()
             appContext = createApplicationContext(request)
         }
-
         templateEngine = appContext.getBean('groovyPagesTemplateEngine')
+
     }
 
 
