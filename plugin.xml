@@ -1,11 +1,9 @@
-<plugin name='angular-template-asset-pipeline' version='1.2.1' grailsVersion='2.0 &gt; *'>
+<plugin name='angular-template-asset-pipeline' version='1.2.2' grailsVersion='2.0 &gt; *'>
   <author>Craig Burke</author>
   <authorEmail>craig@craigburke.com</authorEmail>
   <title>AngularJS Template Asset-Pipeline Plugin</title>
   <description>Provides AngularJS template support for the asset-pipeline static asset management plugin.</description>
   <documentation>http://github.com/craigburke/angular-template-asset-pipeline</documentation>
   <type>AngularTemplateAssetPipelineGrailsPlugin</type>
-  <resources>
-    <resource>com.craigburke.angular.Foo</resource>
-  </resources>
+  <resources />
 </plugin>

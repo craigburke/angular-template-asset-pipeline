@@ -5,7 +5,7 @@ import com.craigburke.angular.HtmlTemplateAssetFile
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
-    def version = "1.2.2"
+    def version = "1.2.3"
     def grailsVersion = "2.0 > *"
 
     def pluginExcludes = [
