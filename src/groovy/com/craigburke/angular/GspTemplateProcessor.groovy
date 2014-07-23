@@ -26,7 +26,6 @@ import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
 import org.springframework.context.ApplicationContext
 import org.codehaus.groovy.grails.commons.TagLibArtefactHandler
 import org.springframework.core.io.FileSystemResource
-import org.springframework.web.context.request.RequestContextHolder
 
 import static com.craigburke.angular.TemplateProcessorUtil.*
 
@@ -129,7 +128,9 @@ class GspTemplateProcessor {
 
     private String renderGsp(File file, String html) {
         StringWriter writer = new StringWriter()
-        templateEngine.createTemplate(html, file.path).make().writeTo(writer)
+        String templateName = "${file.path}-${Calendar.instance.timeInMillis}"
+
+        templateEngine.createTemplate(html, templateName).make().writeTo(writer)
         writer.toString()
     }
 }

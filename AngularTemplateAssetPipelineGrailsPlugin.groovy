@@ -1,12 +1,17 @@
 import asset.pipeline.AssetCompiler
 import asset.pipeline.AssetHelper
+import asset.pipeline.CacheManager
 import com.craigburke.angular.GspTemplateAssetFile
 import com.craigburke.angular.HtmlTemplateAssetFile
+import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
     def version = "1.2.4"
     def grailsVersion = "2.0 > *"
+
+    def watchedResources = ['file:./grails-app/views/_fields/**']
+    def observe = ['domainClass']
 
     def pluginExcludes = [
         "grails-app/assets/**",
@@ -29,6 +34,14 @@ class AngularTemplateAssetPipelineGrailsPlugin {
     def doWithDynamicMethods = { ctx ->
         AssetHelper.assetSpecs << HtmlTemplateAssetFile
         AssetHelper.assetSpecs << GspTemplateAssetFile
+    }
+
+    def onChange = { event ->
+        def cachedGspTemplates = CacheManager.cache?.findAll { key, value -> key.endsWith('.tpl.gsp') }
+
+        cachedGspTemplates.each { key, value ->
+            CacheManager.cache?.remove(key)
+        }
     }
 
 
