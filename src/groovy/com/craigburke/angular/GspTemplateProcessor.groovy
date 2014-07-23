@@ -121,17 +121,15 @@ class GspTemplateProcessor {
 
         String moduleName = getModuleName file
 
-        String html = renderGsp input.toString()
+        String html = renderGsp(file, input.toString())
         String content = formatHtml html
 
         getTemplateJs(moduleName, templateName, content)
     }
 
-    private String renderGsp(String html) {
+    private String renderGsp(File file, String html) {
         StringWriter writer = new StringWriter()
-        String templateName = "angular-template-${Calendar.getInstance().timeInMillis}"
-        templateEngine.createTemplate(html, templateName).make().writeTo(writer)
+        templateEngine.createTemplate(html, file.path).make().writeTo(writer)
         writer.toString()
     }
-
 }
