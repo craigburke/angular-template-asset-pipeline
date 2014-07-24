@@ -13,7 +13,7 @@ plugins {
 		runtime ":angular-template-asset-pipeline:1.2.4"
 }
 ```
-Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm** or **.tpl.html**
+Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm,** **.tpl.html** or **tpl.gsp**
 
 ## Templates
 
