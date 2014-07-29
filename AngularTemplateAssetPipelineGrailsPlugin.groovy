@@ -1,13 +1,11 @@
-import asset.pipeline.AssetCompiler
 import asset.pipeline.AssetHelper
 import asset.pipeline.CacheManager
 import com.craigburke.angular.GspTemplateAssetFile
 import com.craigburke.angular.HtmlTemplateAssetFile
-import org.codehaus.groovy.grails.web.pages.GroovyPagesTemplateEngine
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
-    def version = "1.2.4"
+    def version = "1.2.5"
     def grailsVersion = "2.0 > *"
 
     def watchedResources = ['file:./grails-app/views/_fields/**']

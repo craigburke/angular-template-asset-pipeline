@@ -75,7 +75,7 @@ class GspTemplateProcessor {
             }
 
             if (fieldsPlugin) {
-                pluginManager(DefaultGrailsPluginManager, null, ref('grailsApplication')) { bean -> bean.autowire = true }
+                pluginManager(DefaultGrailsPluginManager, [] as String[], ref('grailsApplication')) { bean -> bean.autowire = true }
                 groovyPageResourceLoader(GroovyPageResourceLoader) {
                     baseResource = new FileSystemResource(appRoot)
                 }

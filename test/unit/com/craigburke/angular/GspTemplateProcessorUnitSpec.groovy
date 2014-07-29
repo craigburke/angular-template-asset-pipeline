@@ -11,10 +11,10 @@ import spock.lang.Specification
 class GspTemplateProcessorUnitSpec extends Specification {
 
     final static String ASSET_PATH = "/src/grails-app/assets"
-    @Shared HtmlTemplateAssetFile assetFile
+    @Shared GspTemplateAssetFile assetFile
 
     def setup() {
-        assetFile = new HtmlTemplateAssetFile()
+        assetFile = new GspTemplateAssetFile()
         assetFile.file = new File("${ASSET_PATH}/templates/my-app/index.tpl.gsp")
 
         Holders.pluginManager.metaClass.allPlugins = [
