@@ -10,7 +10,7 @@ For more information on how to use asset-pipeline, visit [here](http://www.githu
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-		runtime ":angular-template-asset-pipeline:1.2.4"
+		runtime ":angular-template-asset-pipeline:1.2.5"
 }
 ```
 Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm,** **.tpl.html** or **tpl.gsp**
@@ -36,7 +36,7 @@ One potential gotcha is that that these GSP templates are just used to generate 
 ## How it works
 
 This plugin inserts the compressed contents of your template files into AngularJs's $templateCache.
-Both the template name and module are determined by the file name and location.
+Both the template name and module are determined by the file name and location. This plugin expects the module name to be in camel case (ex. myApp not MyApp).
 
 For example a file located at
 
@@ -57,10 +57,10 @@ This allows you to reference your template by just using the file name (without 
 ## Example project
 Here's an example of how you might use this plugin in a project.
 ```javascript
-//= require angular/angular.min.js
-//= require angular/angular-route.min.js
+//= require /angular/angular.min.js
+//= require /angular/angular-route.min.js
 //= require_self
-//= require_tree my-app/app-section/
+//= require_tree /my-app/app-section/
 
 angular.module('myApp.appSection', ['ngRoute'])
 	.config(function($routeProvider) {
