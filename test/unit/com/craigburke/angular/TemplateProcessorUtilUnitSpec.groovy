@@ -6,7 +6,7 @@ import spock.lang.Shared
 
 class TemplateProcessorUtilUnitSpec extends Specification {
 
-    final static String ASSET_PATH = "/src/grails-app/assets"
+    final static String JAVASCRIPT_PATH = "/src/grails-app/assets/javascripts"
 
     @Unroll("covert string: #input to camel case")
     def "convert string to camel case"() {
@@ -27,11 +27,11 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         TemplateProcessorUtil.getModuleName(new File(path)) == result
 
         where:
-        path                                                                        || result
-        "${ASSET_PATH}/templates/my-app/foo.html"                                   || 'myApp'
-        "${ASSET_PATH}/templates/my-APP/foo.html"                                   || 'myApp'
-        "${ASSET_PATH}/templates/my-app/super-COOL-directives/foo.html"             || 'myApp.superCoolDirectives'
-        "${ASSET_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        path                                                                             || result
+        "${JAVASCRIPT_PATH}/templates/my-app/foo.html"                                   || 'myApp'
+        "${JAVASCRIPT_PATH}/templates/my-APP/foo.html"                                   || 'myApp'
+        "${JAVASCRIPT_PATH}/templates/my-app/super-COOL-directives/foo.html"             || 'myApp.superCoolDirectives'
+        "${JAVASCRIPT_PATH}/templates/foo-bar-1/foo-bAR-2/foo-bAr-3/FOO-bar-4/foo.html"  || 'fooBar1.fooBar2.fooBar3.fooBar4'
     }
 
 
