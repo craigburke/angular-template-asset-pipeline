@@ -33,11 +33,10 @@ class TemplateProcessorUtil {
         def config = Holders.config
 
         String moduleSeparator  = config?.grails?.assets?.angular?.moduleSeparator ?: '.'
-        String templateRoot = config?.grails?.assets?.angular?.templateRoot ?: 'templates'
 
         def pathParts = file.path.tokenize(File.separator)
         int assetRootIndex = pathParts.indexOf('grails-app') + 1
-        def relativePathParts = pathParts[assetRootIndex + 1..pathParts.size() - 1] - file.name - templateRoot
+        def relativePathParts = pathParts[assetRootIndex + 2..pathParts.size() - 1] - file.name
 
         relativePathParts.collect { toCamelCase it }.join(moduleSeparator)
     }

@@ -10,7 +10,7 @@ For more information on how to use asset-pipeline, visit [here](http://www.githu
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-		runtime ":angular-template-asset-pipeline:1.2.6"
+		runtime ":angular-template-asset-pipeline:1.2.7"
 }
 ```
 Make sure your templates are contained within the **assets/templates** folder and have the file extension **.tpl.htm,** **.tpl.html** or **tpl.gsp**
@@ -74,13 +74,12 @@ angular.module('myApp.appSection', ['ngRoute'])
 Note the use of **require_self** above to make sure that the **myApp.appSection** module is defined before the template files are imported.
 
 ## Configuration
-You can change the template root folder, module separator character, disable the compression of your HTML templates, or preserve Html comments in your **Config.groovy**:
+You can change the module separator character, disable the compression of your HTML templates, or preserve Html comments in your **Config.groovy**:
 ```groovy
 grails {
 	assets {
 		angular {
 			// Defaults
-			templateRoot = "templates"
 			moduleSeparator = "."
 			compressHtml = true
 			preserveHtmlComments = false

@@ -5,7 +5,7 @@ import com.craigburke.angular.HtmlTemplateAssetFile
 
 class AngularTemplateAssetPipelineGrailsPlugin {
 
-    def version = "1.2.6"
+    def version = "1.2.7"
     def grailsVersion = "2.0 > *"
 
     def watchedResources = ['file:./grails-app/views/_fields/**']
