@@ -5,7 +5,6 @@ import grails.spring.BeanBuilder
 import grails.util.GrailsWebUtil
 import grails.util.Holders
 import org.codehaus.groovy.grails.commons.DefaultGrailsApplication
-import org.codehaus.groovy.grails.commons.GrailsMetaClassUtils
 import org.codehaus.groovy.grails.commons.GrailsTagLibClass
 import org.codehaus.groovy.grails.commons.metaclass.MetaClassEnhancer
 import org.codehaus.groovy.grails.plugins.DefaultGrailsPluginManager
@@ -44,72 +43,81 @@ class GspTemplateProcessor {
             def request = GrailsWebUtil.bindMockWebRequest()
             appContext = createApplicationContext(request)
         }
-        templateEngine = appContext.getBean('groovyPagesTemplateEngine')
 
+        templateEngine = appContext.groovyPagesTemplateEngine
+    }
+
+    private getApplicationRoot(GrailsWebRequest request) {
+        String currentPath = request.servletContext.getRealPath('/')
+        def possibleLocations = ['target', 'build/resources']
+
+        String location = possibleLocations.find { currentPath.contains it }
+        currentPath?.split(location).first()
     }
 
 
     private ApplicationContext createApplicationContext(GrailsWebRequest request) {
-        def applicationContext
+        def appContext
+        def classLoader = GspTemplateProcessor.classLoader
 
         def tagLibs = [ValidationTagLib, FormTagLib, FormatTagLib, RenderTagLib]
-        boolean fieldsPlugin = Holders.pluginManager?.allPlugins?.find { it.name == 'fields' }
-        if (fieldsPlugin) {
-            tagLibs << Class.forName('grails.plugin.formfields.FormFieldsTagLib')
+        boolean fieldsPluginInstalled = Holders.pluginManager?.allPlugins?.find { it.name == 'fields' }
+        if (fieldsPluginInstalled) {
+            tagLibs << classLoader.loadClass('grails.plugin.formfields.FormFieldsTagLib')
         }
 
-        String appRoot = request.servletContext.getRealPath('/').split('target/').first()
+        String appRoot = getApplicationRoot(request)
 
         def beanBuilder = new BeanBuilder()
         beanBuilder.beans {
-            grailsApplication(DefaultGrailsApplication) { bean -> bean.autowire }
+
+            grailsApplication(DefaultGrailsApplication) { bean -> bean.autowire = true }
             gspTagLibraryLookup(TagLibraryLookup) { bean -> bean.autowire = true }
+
             groovyPagesTemplateEngine(GroovyPagesTemplateEngine, request.servletContext) {
-                classLoader = GspTemplateProcessor.classLoader
-                tagLibraryLookup = ref('gspTagLibraryLookup')
+                classLoader = classLoader
+                tagLibraryLookup = gspTagLibraryLookup
             }
             instanceTagLibraryApi(TagLibraryApi) { bean -> bean.autowire = true }
 
-            tagLibs.each { tagLibClass ->
-                "${tagLibClass.name}"(tagLibClass) { bean -> bean.autowire = true }
-            }
-
-            if (fieldsPlugin) {
-                pluginManager(DefaultGrailsPluginManager, [] as String[], ref('grailsApplication')) { bean -> bean.autowire = true }
+            if (fieldsPluginInstalled) {
+                pluginManager(DefaultGrailsPluginManager, [] as String[], grailsApplication) { bean -> bean.autowire = true }
                 groovyPageResourceLoader(GroovyPageResourceLoader) {
                     baseResource = new FileSystemResource(appRoot)
                 }
                 groovyPagesTemplateRenderer(GroovyPagesTemplateRenderer) { bean -> bean.autowire = true }
                 codecLookup(StandaloneCodecLookup)
                 groovyPageLocator(GrailsConventionGroovyPageLocator) { bean -> bean.autowire = true }
-                formFieldsTemplateService(Class.forName('grails.plugin.formfields.FormFieldsTemplateService')) { bean -> bean.autowire = true }
+                formFieldsTemplateService(classLoader.loadClass('grails.plugin.formfields.FormFieldsTemplateService')) { bean -> bean.autowire = true }
                 constraintsEvaluator(DefaultConstraintEvaluator)
                 proxyHandler(DefaultProxyHandler)
-                beanPropertyAccessorFactory(Class.forName('grails.plugin.formfields.BeanPropertyAccessorFactory')) { bean -> bean.autowire = true }
+                beanPropertyAccessorFactory(classLoader.loadClass('grails.plugin.formfields.BeanPropertyAccessorFactory')) { bean -> bean.autowire = true }
+            }
+
+            tagLibs.each { tagLibClass ->
+                "${tagLibClass.name}"(tagLibClass) { bean ->  bean.autowire = true }
             }
         }
 
-        applicationContext = beanBuilder.createApplicationContext()
+        appContext = beanBuilder.createApplicationContext()
 
-        if (fieldsPlugin) {
-            def groovyPageLocator = applicationContext.getBean('groovyPageLocator')
-            groovyPageLocator.addResourceLoader(applicationContext.getBean('groovyPageResourceLoader'))
+        if (fieldsPluginInstalled) {
+            appContext.groovyPageLocator.addResourceLoader(appContext.groovyPageResourceLoader)
         }
 
-        def instanceTagLibraryApi = applicationContext.getBean('instanceTagLibraryApi')
-        def tagLookup =  applicationContext.getBean('gspTagLibraryLookup')
-        tagLibs.each { tagLibClass -> registerTagLib(tagLibClass, tagLookup, instanceTagLibraryApi) }
+        tagLibs.each { tagLibClass ->
+            registerTagLib(appContext."${tagLibClass.name}", appContext.gspTagLibraryLookup, appContext.instanceTagLibraryApi)
+        }
 
-        applicationContext
+        appContext
     }
 
-    private def registerTagLib(def tagLibClass, def tagLookup, def instanceTagLibraryApi) {
-        GrailsTagLibClass tagLib = Holders.grailsApplication.addArtefact(TagLibArtefactHandler.TYPE, tagLibClass)
+    private def registerTagLib(def bean, def tagLookup, def instanceTagLibraryApi) {
+        GrailsTagLibClass tagLib = Holders.grailsApplication.addArtefact(TagLibArtefactHandler.TYPE, bean.class)
 
         MetaClassEnhancer enhancer = new MetaClassEnhancer()
         enhancer.addApi(instanceTagLibraryApi)
-        MetaClass mc = GrailsMetaClassUtils.getMetaClass(tagLib)
-        enhancer.enhance(mc)
+        enhancer.enhance(bean.metaClass)
 
         tagLookup.registerTagLib(tagLib)
     }

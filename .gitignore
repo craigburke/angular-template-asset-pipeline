@@ -8,3 +8,5 @@
 # Grails
 target
 out
+*.zip
+plugin.xml
