@@ -39,8 +39,8 @@ This allows you to reference your template by just using the file name (without 
 ## Example project
 Here's an example of how you might use this plugin in a project.
 ```javascript
-//= require /angular/angular.min.js
-//= require /angular/angular-route.min.js
+//= require /angular/angular
+//= require /angular/angular-route
 //= require_self
 //= require_tree /templates/my-app/app-section/
 
