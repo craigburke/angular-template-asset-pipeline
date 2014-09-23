@@ -13,25 +13,7 @@ plugins {
 		runtime ":angular-template-asset-pipeline:1.3.0"
 }
 ```
-Make sure your templates are contained within the **assets/javascripts/templates** folder and have the file extension **.tpl.htm,** **.tpl.html** or **tpl.gsp**
-
-## Templates
-
-Any templates with a **tpl.htm** or **tpl.html** extension will be treated as normal static HTML.
-
-Any templates with a **tpl.gsp** extension supports inline Groovy expressions (not all g tags are currently supported). The **f:with** and **f:field** tags are supported if you have the [Fields Plugin](http://grails.org/plugin/fields) installed. For example you can use it like so:
-```html
-<%@ Page import="com.craigburke.Book" %>
-<f:with bean="${new Book()}">
-	<f:field property="title" input-ng-model="item.title" ></f:field>
-	<f:field property="publishDate" input-ng-model="item.publishDate"></f:field>
-</f:with>
-```
-One potential gotcha is that that these GSP templates are just used to generate static HTML and won't change on subsequent requests. For example:
-```html
-<!-- This won't work as expected. The time will never change -->
-<p>The current time is: <%= new Date() %></p>
-```
+Make sure your templates are contained within the **assets/javascripts/templates** folder and have the file extension **.tpl.htm,** or **.tpl.html**
 
 ## How it works
 
