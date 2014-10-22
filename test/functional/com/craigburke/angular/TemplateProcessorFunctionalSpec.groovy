@@ -28,18 +28,4 @@ class TemplateProcessorFunctionalSpec extends GebReportingSpec {
         'test3.html'    || "Test3"
     }
 
-
-    def "field plugin integration"() {
-        when:
-        to FieldsTestPage
-
-        and:
-        name = "Foo"
-        number = "33"
-
-        then:
-        nameValue == "Foo"
-        numberValue == "33"
-    }
-
 }

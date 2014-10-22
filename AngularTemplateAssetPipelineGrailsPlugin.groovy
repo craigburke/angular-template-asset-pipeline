@@ -1,15 +1,11 @@
 import asset.pipeline.AssetHelper
 import asset.pipeline.CacheManager
-import com.craigburke.angular.GspTemplateAssetFile
 import com.craigburke.angular.HtmlTemplateAssetFile
 
 class AngularTemplateAssetPipelineGrailsPlugin {
-
-    def version = "1.3.0"
+	
+    def version = "1.4.0"
     def grailsVersion = "2.0 > *"
-
-    def watchedResources = ['file:./grails-app/views/_fields/**']
-    def observe = ['domainClass']
 
     def pluginExcludes = [
         "grails-app/assets/**",
@@ -27,19 +23,8 @@ class AngularTemplateAssetPipelineGrailsPlugin {
     def issueManagement = [ system: "GITHUB", url: "http://github.com/craigburke/angular-template-asset-pipeline/issues" ]
     def scm = [ url: "http://github.com/craigburke/angular-template-asset-pipeline" ]
 
-    def loadAfter = ['fields']
-
     def doWithDynamicMethods = { ctx ->
         AssetHelper.assetSpecs << HtmlTemplateAssetFile
-        AssetHelper.assetSpecs << GspTemplateAssetFile
-    }
-
-    def onChange = { event ->
-        def cachedGspTemplates = CacheManager.cache?.findAll { key, value -> key.endsWith('.tpl.gsp') }
-
-        cachedGspTemplates.each { key, value ->
-            CacheManager.cache?.remove(key)
-        }
     }
 
 

@@ -5,12 +5,7 @@ import grails.util.Holders
 
 class TemplateProcessorUtil {
 
-    static String formatHtml(String html) {
-        def config = Holders.config
-
-        boolean compressHtml = config?.grails?.assets?.angular?.compressHtml ?: true
-        boolean preserveHtmlComments = config?.grails?.assets?.angular?.preserveHtmlComments ?: false
-
+    static String formatHtml(String html, boolean compressHtml = true, boolean preserveHtmlComments = false) {
         html = html.replace("'", "\\'")
 
         if (compressHtml) {
@@ -28,18 +23,29 @@ class TemplateProcessorUtil {
 
         html
     }
-
-    static String getModuleName(File file) {
-        def config = Holders.config
-
-        String moduleSeparator  = config?.grails?.assets?.angular?.moduleSeparator ?: '.'
-        String templateRoot = config?.grails?.assets?.angular?.templateRoot ?: 'templates'
-
+	
+	static def getRelativePathParts(File file) {
         def pathParts = file.path.tokenize(File.separator)
-        int assetRootIndex = pathParts.indexOf('grails-app') + 1
-        def relativePathParts = pathParts[assetRootIndex + 2..pathParts.size() - 1] - file.name - templateRoot
+        int assetRootIndex = pathParts.indexOf('grails-app') + 2
+        def relativePathParts = pathParts[assetRootIndex + 1..pathParts.size() - 1] - file.name
+	}
+	
+	static String getTemplateName(File file, String templateFolder, boolean includePath = false) {
+		String fileName = file.name.replace('.tpl', '')
 
-        relativePathParts.collect { toCamelCase it }.join(moduleSeparator)
+		if (includePath) {
+			def pathParts = getRelativePathParts(file) - templateFolder
+
+			"/${pathParts.join('/')}/${fileName}" 
+		}
+		else {
+			fileName
+		}
+	}
+
+    static String getModuleName(File file, String templateFolder = "") {
+        def pathParts = getRelativePathParts(file) - templateFolder
+        pathParts.collect { toCamelCase it }.join('.')
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {
