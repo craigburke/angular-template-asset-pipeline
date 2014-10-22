@@ -16,8 +16,8 @@ class HtmlTemplateProcessor {
 		
         String moduleName = getModuleName(file, templateFolder)
 
-		boolean includePath = config?.includePath
-        String templateName = getTemplateName(file, templateFolder, includePath)
+		boolean includePathInName = config?.includePathInName
+        String templateName = getTemplateName(file, templateFolder, includePathInName)
 		
 	    boolean compressHtml = config?.compressHtml
 		boolean preserveHtmlComments = config?.preserveHtmlComments

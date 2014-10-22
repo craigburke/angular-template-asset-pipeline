@@ -57,7 +57,7 @@ Note the use of **require_self** above to make sure that the **myApp.appSection*
 
 ## Configuration
 
-If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includeFullPath** setting. With the setting set to true:
+If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. With the setting set to true:
 
 A file located at
 ```
@@ -81,7 +81,7 @@ grails {
 			templateFolder = "templates"			
 			compressHtml = true
 			preserveHtmlComments = false
-			includeFullPath = false
+			includePathInName = false
 		}
 	}
 }
