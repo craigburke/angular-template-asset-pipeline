@@ -21,7 +21,15 @@ class HtmlTemplateProcessor {
 		
 	    boolean compressHtml = config?.compressHtml
 		boolean preserveHtmlComments = config?.preserveHtmlComments
-		String content = formatHtml(input.toString(), compressHtml, preserveHtmlComments)
+		//get content
+		String contentAfterCompress = input.toString()
+		//replace script type after compress
+		contentAfterCompress = contentAfterCompress.replaceAll("text/ng-template","text/x-jquery-tmpl")
+		
+		String content = formatHtml(contentAfterCompress, compressHtml, preserveHtmlComments)
+		
+		//replace script type before compress
+		content = content.replaceAll("text/x-jquery-tmpl","text/ng-template")
 
         getTemplateJs(moduleName, templateName, content)
     }
