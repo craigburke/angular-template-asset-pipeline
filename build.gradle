@@ -1,0 +1,34 @@
+plugins {
+	id 'com.jfrog.bintray' version '0.6'
+}
+
+repositories {
+  	flatDir {
+		dirs 'libs'
+   	}
+    jcenter()
+    mavenCentral()
+}
+
+group = 'com.craigburke.angular'
+version = '2.0.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+
+dependencies {
+	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.2-SNAPSHOT'
+	compile 'org.codehaus.groovy:groovy-all:2.2.2'
+    compile 'org.mozilla:rhino:1.7R4'
+	
+	compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
+    compile 'org.spockframework:spock-core:0.7-groovy-2.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}

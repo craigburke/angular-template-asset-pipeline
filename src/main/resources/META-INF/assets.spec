@@ -1,0 +1,1 @@
+com.craigburke.angular.HTMLTemplateAssetFile
