@@ -14,7 +14,7 @@ class HTMLTemplateProcessor {
 		File file = assetFile.file		
 		String templateFolder = config?.templateFolder ?: "templates"
 
-        String moduleName = getModuleName(file, templateFolder)
+		String moduleName = getModuleName(file, templateFolder)
 
 		boolean includePathInName = config?.hasProperty('includePathInName') ? config.includePathInName : false
 		String templateName = getTemplateName(file, templateFolder, includePathInName)
