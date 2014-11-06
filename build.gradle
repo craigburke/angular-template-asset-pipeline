@@ -13,7 +13,7 @@ apply plugin: 'groovy'
 
 dependencies {
 	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.2-SNAPSHOT'
-	compile 'org.codehaus.groovy:groovy-all:2.2.2'
+	compile 'org.codehaus.groovy:groovy-all:2.3.6'
 	compile 'org.mozilla:rhino:1.7R4'
 	
 	compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'

@@ -1,10 +1,11 @@
 package com.craigburke.angular
 
+import asset.pipeline.AssetFile
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 
 class TemplateProcessorUtil {
 	
-	static String formatHtml(String html, boolean compressHtml = true, boolean preserveHtmlComments = false) {
+	static String formatHtml(String html, boolean compressHtml, boolean preserveHtmlComments) {
 		html = html.replace("'", "\\'")
 		
 		if (compressHtml) {
@@ -23,27 +24,25 @@ class TemplateProcessorUtil {
 		html
 	}
 	
-	static def getRelativePathParts(File file) {
-		def pathParts = file.path.tokenize(File.separator)
-		int assetRootIndex = pathParts.indexOf('grails-app') + 2
-		def relativePathParts = pathParts[assetRootIndex + 1..pathParts.size() - 1] - file.name
+	static def getPathParts(AssetFile file, String templateFolder) {
+		file.path.tokenize(File.separator) - templateFolder - file.name
 	}
-	
-	static String getTemplateName(File file, String templateFolder, boolean includePath = false) {
+
+
+	static String getTemplateName(AssetFile file, String templateFolder, boolean includePath) {
 		String fileName = file.name.replace('.tpl', '')
 		
 		if (includePath) {
-			def pathParts = getRelativePathParts(file) - templateFolder
-			return "/${pathParts.join('/')}/${fileName}" 
+			def pathParts = getPathParts(file, templateFolder)
+			return "/${pathParts.join(File.separator)}/${fileName}" 
 		}
 		else {
 			return fileName
 		}
 	}
 	
-	static String getModuleName(File file, String templateFolder = "") {
-		def pathParts = getRelativePathParts(file) - templateFolder
-		pathParts.collect { toCamelCase it }.join('.')
+	static String getModuleName(AssetFile file, String templateFolder) {
+		getPathParts(file, templateFolder).collect { toCamelCase it }.join('.')
 	}
 
 	static String getTemplateJs(String moduleName, String templateName, String content) {

@@ -2,22 +2,22 @@ package com.craigburke.angular
 
 import asset.pipeline.AssetCompiler
 import asset.pipeline.AssetPipelineConfigHolder
+import asset.pipeline.AssetFile
 import static com.craigburke.angular.TemplateProcessorUtil.*
 
 class HTMLTemplateProcessor {
 
 	HTMLTemplateProcessor(AssetCompiler precompiler) { }
 
-	def process(input, assetFile) {
+	def process(String input, AssetFile assetFile) {
 		def config = AssetPipelineConfigHolder.config.angular
 
-		File file = assetFile.file		
 		String templateFolder = config?.templateFolder ?: "templates"
 
-		String moduleName = getModuleName(file, templateFolder)
+		String moduleName = getModuleName(assetFile, templateFolder)
 
 		boolean includePathInName = config?.hasProperty('includePathInName') ? config.includePathInName : false
-		String templateName = getTemplateName(file, templateFolder, includePathInName)
+		String templateName = getTemplateName(assetFile, templateFolder, includePathInName)
 		
 		boolean compressHtml = config?.hasProperty('compressHtml') ? config.compressHtml : true
 		boolean preserveHtmlComments = config?.hasProperty('preserveHtmlComments') ? config.preserveHtmlComments : false
