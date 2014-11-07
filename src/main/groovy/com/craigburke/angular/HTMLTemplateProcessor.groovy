@@ -5,12 +5,15 @@ import asset.pipeline.AssetPipelineConfigHolder
 import asset.pipeline.AssetFile
 import static com.craigburke.angular.TemplateProcessorUtil.*
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 class HTMLTemplateProcessor {
 
 	HTMLTemplateProcessor(AssetCompiler precompiler) { }
 
 	def process(String input, AssetFile assetFile) {
-		def config = AssetPipelineConfigHolder.config.angular
+		Map config = (Map)AssetPipelineConfigHolder.config.angular
 
 		String templateFolder = config?.templateFolder ?: "templates"
 

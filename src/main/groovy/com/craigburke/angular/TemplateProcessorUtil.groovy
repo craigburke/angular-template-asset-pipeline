@@ -3,6 +3,9 @@ package com.craigburke.angular
 import asset.pipeline.AssetFile
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 class TemplateProcessorUtil {
 	
 	static String formatHtml(String html, boolean compressHtml, boolean preserveHtmlComments) {
@@ -24,7 +27,7 @@ class TemplateProcessorUtil {
 		html
 	}
 	
-	static def getPathParts(AssetFile file, String templateFolder) {
+	static List<String> getPathParts(AssetFile file, String templateFolder) {
 		file.path.tokenize(File.separator) - templateFolder - file.name
 	}
 
@@ -42,7 +45,7 @@ class TemplateProcessorUtil {
 	}
 	
 	static String getModuleName(AssetFile file, String templateFolder) {
-		getPathParts(file, templateFolder).collect { toCamelCase it }.join('.')
+		getPathParts(file, templateFolder).collect { String pathPart -> toCamelCase pathPart }.join('.')
 	}
 
 	static String getTemplateJs(String moduleName, String templateName, String content) {
@@ -67,7 +70,7 @@ class TemplateProcessorUtil {
 		}
 		
 		def result = new StringBuilder()
-		input.split(separator).eachWithIndex { part, index ->
+		input.split(separator).eachWithIndex { String part, int index ->
 			if (index > 0 && part?.length() != 0) {
 				result.append(part.substring(0, 1).toUpperCase() + part.substring(1))
 			}
