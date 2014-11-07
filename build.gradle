@@ -1,7 +1,5 @@
 repositories {
-	flatDir {
-		dirs 'libs'
-	}
+	mavenLocal()
 	jcenter()
 	mavenCentral()
 }
@@ -10,6 +8,7 @@ group = 'com.craigburke.angular'
 version = '2.0.0-SNAPSHOT'
 
 apply plugin: 'groovy'
+apply plugin: 'maven-publish'
 
 dependencies {
 	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.2-SNAPSHOT'
@@ -27,4 +26,13 @@ task wrapper(type: Wrapper) {
 task sourcesJar(type: Jar) {
 	classifier = 'sources'
 	from sourceSets.main.allSource
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			artifactId 'angular-template-asset-pipeline'
+			from components.java
+		}
+	}
 }
