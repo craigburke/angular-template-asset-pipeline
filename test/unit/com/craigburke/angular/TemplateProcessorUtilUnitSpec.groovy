@@ -49,6 +49,11 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         "${JAVASCRIPT_PATH}/foo-bar1/foo-bar2/foo-bar3/foo-bar4/templates/foobar.tpl.html"  	|| 'foobar.html'	| '/foo-bar1/foo-bar2/foo-bar3/foo-bar4/foobar.html'
     }
 
+    def "escape line breakers from HTML"() {
+        when:
+        def result = TemplateProcessorUtil.formatHtml("<div>\r\nHello\rworld!\n</div>\r\n", false)
 
-
+        then:
+        result.equals("<div> \\\nHello \\\nworld! \\\n</div> \\\n")
+    }
 }
