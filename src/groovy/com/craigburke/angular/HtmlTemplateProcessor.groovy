@@ -19,7 +19,7 @@ class HtmlTemplateProcessor {
 		boolean includePathInName = config?.includePathInName
         String templateName = getTemplateName(file, templateFolder, includePathInName)
 		
-	    boolean compressHtml = config?.compressHtml
+	    boolean compressHtml = (config?.compressHtml == false) ? false : true
 		boolean preserveHtmlComments = config?.preserveHtmlComments
 		String content = formatHtml(input.toString(), compressHtml, preserveHtmlComments)
 

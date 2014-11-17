@@ -17,10 +17,11 @@ class TemplateProcessorUtil {
 
             html = compressor.compress html
         }
-        else {
-            html = html.replace("\n", " \\\n")
-        }
-
+		
+		String newLine = System.getProperty("line.separator")
+		String escapedNewLine = newLine.replace('/', '//')
+		
+		html.replace(newLine, escapedNewLine)
         html
     }
 	
