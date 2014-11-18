@@ -21,7 +21,7 @@ class TemplateProcessorUtil {
 			html = compressor.compress html
 		}
 		
-		html = html.replaceAll("((\r)?\n", " \\n")
+		html = html.replaceAll("(\r)?\n", " \\n")
 		html
 	}
 	
