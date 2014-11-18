@@ -18,10 +18,7 @@ class TemplateProcessorUtil {
             html = compressor.compress html
         }
 		
-		String newLine = System.getProperty("line.separator")
-		String escapedNewLine = newLine.replace('/', '//')
-		
-		html.replace(newLine, escapedNewLine)
+		html = html.replaceAll("((\r)?\n", " \\n")
         html
     }
 	
