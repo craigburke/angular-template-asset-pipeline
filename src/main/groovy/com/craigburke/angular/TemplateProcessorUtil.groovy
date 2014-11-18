@@ -20,10 +20,8 @@ class TemplateProcessorUtil {
 			
 			html = compressor.compress html
 		}
-		else {
-			html = html.replace("\n", " \\\n")
-		}
 		
+		html = html.replaceAll("((\r)?\n", " \\n")
 		html
 	}
 	
@@ -49,11 +47,11 @@ class TemplateProcessorUtil {
 	}
 
 	static String getTemplateJs(String moduleName, String templateName, String content) {
-		"""
+		"""\
 			angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
 				\$templateCache.put('${templateName}', '${content}');
 			}]);
-		"""
+		""".stripIndent()
 	}
 	
 	static String toCamelCase(String input) {

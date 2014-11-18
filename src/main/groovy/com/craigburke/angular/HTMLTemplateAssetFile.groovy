@@ -10,7 +10,7 @@ class HTMLTemplateAssetFile extends AbstractAssetFile {
 
 	static processors = [HTMLTemplateProcessor]
 
-	String directiveForLine(String line) {
+	static String directiveForLine(String line) {
 		return null
 	}
 }
