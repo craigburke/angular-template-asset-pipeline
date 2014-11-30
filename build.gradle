@@ -11,7 +11,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
 dependencies {
-	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.2-SNAPSHOT'
+	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.5'
 	compile 'org.codehaus.groovy:groovy-all:2.3.6'
 	compile 'org.mozilla:rhino:1.7R4'
 	
