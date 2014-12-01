@@ -1,3 +1,7 @@
+plugins {
+	id "com.jfrog.bintray" version "1.0"
+}
+
 repositories {
 	mavenLocal()
 	jcenter()
@@ -5,7 +9,7 @@ repositories {
 }
 
 group = 'com.craigburke.angular'
-version = '2.0.0-SNAPSHOT'
+version = '2.0.0'
 
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
@@ -27,6 +31,21 @@ task sourcesJar(type: Jar) {
 	classifier = 'sources'
 	from sourceSets.main.allSource
 }
+
+bintray {
+    user = project.hasProperty('bintrayUsername') ? project.bintrayUsername : ''
+    key = project.hasProperty('bintrayApiKey') ? project.bintrayApiKey : ''
+    publications = ['maven']
+    
+	pkg {
+        repo = 'asset-pipeline'
+        userOrg = 'craigburke'
+        name = 'angular-template-asset-pipeline'
+        licenses = ['Apache-2.0']
+    }
+	
+}
+
 
 publishing {
 	publications {
