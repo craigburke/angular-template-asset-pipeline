@@ -1,6 +1,5 @@
 AngularJs Template Asset-Pipeline
 ================================
-[ ![Codeship Status for craigburke/angular-template-grails-asset-pipeline](https://codeship.com/projects/c3fa4ac0-50b4-0132-8026-1e2b17cb1d46/status)](https://codeship.com/projects/48127)
 
 The Grails `angular-template-asset-pipeline` is a plugin that provides angular template precompiler support to the asset-pipeline plugin.
 
