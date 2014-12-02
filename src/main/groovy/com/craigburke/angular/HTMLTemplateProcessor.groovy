@@ -13,7 +13,7 @@ class HTMLTemplateProcessor {
 	HTMLTemplateProcessor(AssetCompiler precompiler) { }
 
 	def process(String input, AssetFile assetFile) {
-		Map config = (Map)AssetPipelineConfigHolder.config.angular
+		Map config = (Map)AssetPipelineConfigHolder.config?.angular
 
 		String templateFolder = config?.templateFolder ?: "templates"
 

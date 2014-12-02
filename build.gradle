@@ -52,6 +52,9 @@ publishing {
 		maven(MavenPublication) {
 			artifactId 'angular-template-asset-pipeline'
 			from components.java
+		    artifact sourcesJar
 		}
 	}
 }
+
+bintrayUpload.dependsOn build, sourcesJar
