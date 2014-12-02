@@ -51,10 +51,38 @@ publishing {
 	publications {
 		maven(MavenPublication) {
 			artifactId 'angular-template-asset-pipeline'
+			pom.withXml {
+				asNode().children().last() + {
+					resolveStrategy = Closure.DELEGATE_FIRST
+					name 'angular-template-asset-pipeline'
+                    description 'AngularJS Templates extension for the Asset Pipeline Library.'
+					url 'https://github.com/craigburke/angular-template-asset-pipeline'
+					scm {
+						url 'https://github.com/craigburke/angular-template-asset-pipeline'
+						connection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
+						developerConnection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
+                    }
+                    licenses {
+                        license {
+                            name 'The Apache Software License, Version 2.0'
+                            url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id 'craigburke'
+                            name 'Craig Burke'
+                            email 'craig@craigburke.com'
+                        	}
+                    	}
+					}
+			}		
 			from components.java
-		    artifact sourcesJar
+			artifact sourcesJar
+            artifact javadocJar
 		}
 	}
 }
 
-bintrayUpload.dependsOn build, sourcesJar
+bintrayUpload.dependsOn build, sourcesJar, javadocJar
