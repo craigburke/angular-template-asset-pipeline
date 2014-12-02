@@ -9,7 +9,7 @@ For more information on how to use asset-pipeline, visit [here](http://www.githu
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-		runtime ":angular-template-asset-pipeline:1.4.2"
+		runtime ":angular-template-asset-pipeline:2.0.1"
 }
 ```
 Make sure your templates are contained within a **templates** folder and have the file extension **.tpl.htm,** or **.tpl.html**
