@@ -9,19 +9,30 @@ repositories {
 }
 
 group = 'com.craigburke.angular'
-version = '2.0.1'
+version = '2.0.2'
 
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
+configurations { 
+	provided 
+	testCompile { extendsFrom provided }
+}
+
 dependencies {
-	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.5'
-	compile 'org.codehaus.groovy:groovy-all:2.3.6'
+	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.12'
+	provided 'org.codehaus.groovy:groovy-all:2.3.6'
 	compile 'org.mozilla:rhino:1.7R4'
 	
 	compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
-	compile 'org.spockframework:spock-core:0.7-groovy-2.0'
+	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
+
+sourceSets {
+	main {
+		compileClasspath += configurations.provided
+	}
+} 
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.1'
