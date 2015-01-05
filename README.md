@@ -56,9 +56,9 @@ Note the use of **require_self** above to make sure that the **myApp.appSection*
 
 ## Configuration
 
-If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. With the setting set to true:
+If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. 
 
-A file located at
+With the setting set to true, a file located at
 ```
 /grails-app/assets/javascripts/my-app/app-section/templates/index.tpl.htm
 ```
