@@ -20,7 +20,7 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-		compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.2"
+		compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.3"
     }
     plugins {
        
