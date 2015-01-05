@@ -19,11 +19,11 @@ class HTMLTemplateProcessor {
 
 		String moduleName = getModuleName(assetFile, templateFolder)
 
-		boolean includePathInName = config?.hasProperty('includePathInName') ? config.includePathInName : false
+		boolean includePathInName = config?.containsKey('includePathInName') ? config.includePathInName : false
 		String templateName = getTemplateName(assetFile, templateFolder, includePathInName)
 		
-		boolean compressHtml = config?.hasProperty('compressHtml') ? config.compressHtml : true
-		boolean preserveHtmlComments = config?.hasProperty('preserveHtmlComments') ? config.preserveHtmlComments : false
+		boolean compressHtml = config?.containsKey('compressHtml') ? config.compressHtml : true
+		boolean preserveHtmlComments = config?.containsKey('preserveHtmlComments') ? config.preserveHtmlComments : false
 		String content = formatHtml(input.toString(), compressHtml, preserveHtmlComments)
 		
 		getTemplateJs(moduleName, templateName, content)
