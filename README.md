@@ -22,7 +22,7 @@ Both the template name and module are determined by the file name and location. 
 For example a file located at
 
 ```
-/grails-app/assets/javascripts/my-app/app-section/templates/index.tpl.htm
+/assets/javascripts/my-app/app-section/templates/index.tpl.htm
 ```
 
 Will generate javascript like this:
@@ -60,7 +60,7 @@ If you run into naming collisions with your template names, you can opt to inclu
 
 With the setting set to true, a file located at
 ```
-/grails-app/assets/javascripts/my-app/app-section/templates/index.tpl.htm
+/assets/javascripts/my-app/app-section/templates/index.tpl.htm
 ```
 
 Will then generate javascript like this:
