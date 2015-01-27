@@ -14,6 +14,8 @@ plugins {
 ```
 Make sure your templates are contained within a **templates** folder and have the file extension **.tpl.htm,** or **.tpl.html**
 
+*Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of this plugin.*
+
 ## How it works
 
 This plugin inserts the compressed contents of your template files into AngularJs's $templateCache.
