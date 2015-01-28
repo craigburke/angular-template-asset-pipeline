@@ -9,10 +9,12 @@ For more information on how to use asset-pipeline, visit [here](http://www.githu
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-		runtime ":angular-template-asset-pipeline:2.0.2"
+		runtime ":angular-template-asset-pipeline:2.0.3"
 }
 ```
 Make sure your templates are contained within a **templates** folder and have the file extension **.tpl.htm,** or **.tpl.html**
+
+*Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of this plugin.*
 
 ## How it works
 
@@ -22,7 +24,7 @@ Both the template name and module are determined by the file name and location. 
 For example a file located at
 
 ```
-/grails-app/assets/javascripts/my-app/app-section/templates/index.tpl.htm
+/assets/javascripts/my-app/app-section/templates/index.tpl.htm
 ```
 
 Will generate javascript like this:
@@ -56,11 +58,11 @@ Note the use of **require_self** above to make sure that the **myApp.appSection*
 
 ## Configuration
 
-If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. With the setting set to true:
+If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. 
 
-A file located at
+With the setting set to true, a file located at
 ```
-/grails-app/assets/javascripts/my-app/app-section/templates/index.tpl.htm
+/assets/javascripts/my-app/app-section/templates/index.tpl.htm
 ```
 
 Will then generate javascript like this:
