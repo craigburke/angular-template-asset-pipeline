@@ -9,25 +9,19 @@ grails.project.dependency.resolution = {
     log 'warn'
     legacyResolve false
 
-    String gebVersion = '0.9.2'
-    String seleniumVersion = '2.43.1'
-    String spockVersion = '0.7'
-
     repositories {
         grailsCentral()
         grailsPlugins()
         mavenCentral()
+	jcenter()
     }
 
     dependencies {
-		compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.3"
+	compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.3"
     }
     plugins {
-       
-        build(":release:3.0.1",
-              ":rest-client-builder:1.0.3",
-              ":tomcat:7.0.53") {
+        build(":release:3.0.1", ":rest-client-builder:1.0.3",":tomcat:7.0.53") {
             export = false
-		}
+	}
     }
 }
