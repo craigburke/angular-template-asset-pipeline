@@ -2,6 +2,7 @@ package com.craigburke.angular
 
 import asset.pipeline.AssetFile
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
+import java.util.regex.Pattern
 
 import groovy.transform.CompileStatic
 
@@ -26,7 +27,7 @@ class TemplateProcessorUtil {
 	}
 	
 	static List<String> getPathParts(AssetFile file, String templateFolder) {
-		file.path.tokenize(File.separator) - templateFolder - file.name
+		file.path.tokenize(Pattern.quote(File.separator)) - templateFolder - file.name
 	}
 
 
@@ -68,7 +69,7 @@ class TemplateProcessorUtil {
 		}
 		
 		def result = new StringBuilder()
-		input.split(separator).eachWithIndex { String part, int index ->
+		input.split(Pattern.quote(separator)).eachWithIndex { String part, int index ->
 			if (index > 0 && part?.length() != 0) {
 				result.append(part.substring(0, 1).toUpperCase() + part.substring(1))
 			}
