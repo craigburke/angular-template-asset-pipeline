@@ -5,7 +5,7 @@ AngularJs Template Asset-Pipeline
 The `angular-template-asset-pipeline` is an [Asset Pipeline](http://www.github.com/bertramdev/asset-pipeline) module that provides angular template precompiler support for Gradle and Grails projects.
 
 ## Getting started
-Make sure your templates are contained within a **templates** folder and have the file extension **.tpl.htm**
+Make sure your templates are contained within a **templates** folder within the assets folder and have the file extension **.tpl.htm**
 
 ### Gradle
 ```groovy
