@@ -18,7 +18,7 @@ buildscript {
 }
 
 dependencies {
-  compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
+	compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
 }
 ```
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
