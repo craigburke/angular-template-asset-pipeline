@@ -101,7 +101,7 @@ assets {
 			preserveHtmlComments: false,
 			includePathInName: false
 		]
-    	]
+	]
 }
 ```
 
