@@ -1,6 +1,42 @@
+<<<<<<< HEAD
 AngularJS Template Asset Pipeline
 ================================
 [ ![Codeship Status for craigburke/angular-template-asset-pipeline](https://codeship.com/projects/5551ee00-5167-0132-b713-2673ecafb081/status?branch=master)](https://codeship.com/projects/48337)
+=======
+AngularJs Template Asset-Pipeline
+================================
+[ ![Codeship Status for craigburke/angular-template-asset-pipeline](https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master)](https://codeship.com/projects/60441)
+
+The `angular-template-asset-pipeline` is an [Asset Pipeline](http://www.github.com/bertramdev/asset-pipeline) module that provides angular template precompiler support for Gradle and Grails projects.
+
+## Getting started
+Make sure your templates are contained within a **templates** folder and have the file extension **.tpl.htm**
+
+### Gradle
+```groovy
+buildscript {
+    dependencies {
+        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
+        classpath "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
+        classpath "com.craigburke.angular:angular-annotate-asset-pipeline:2.0.2"
+    }
+}
+
+dependencies {
+  compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
+}
+```
+Make sure the dependency is specified in both the buildscript and dependencies blocks.
+
+### Grails 
+Add the plugin to your **BuildConfig.groovy**:
+```groovy
+plugins {
+	runtime ":angular-template-asset-pipeline:2.0.4"
+}
+```
+*Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.*
+>>>>>>> f872614722f09de65b018b9ac8d6e395659aee7b
 
 ## How it works
 
@@ -58,6 +94,7 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 }]);
 ```
 
+<<<<<<< HEAD
 You can also change the template folder, disable the compression of your HTML templates, or preserve Html comments:
 
 ```groovy
@@ -75,3 +112,39 @@ assets {
 **Note:** If you're looking for documentation for the Grails plugin, it can be found here:
 
 [AngularJS Template Assset Pipeline - Grails Plugin](https://github.com/craigburke/angular-template-grails-asset-pipeline)
+=======
+You can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
+
+
+### Gradle
+In gradle these settings can be changed in your **build.config**
+```groovy
+assets {
+	configOptions = [
+		angular : [
+			templateFolder: "templates",		
+			compressHtml: true,
+			preserveHtmlComments: false,
+			includePathInName: false
+		]
+    	]
+}
+```
+
+### Grails
+In Grails these settings can be set in your **Config.groovy**
+
+```groovy
+grails {
+	assets {
+		angular {
+			// Defaults
+			templateFolder = "templates"			
+			compressHtml = true
+			preserveHtmlComments = false
+			includePathInName = false
+		}
+	}
+}
+```
+>>>>>>> f872614722f09de65b018b9ac8d6e395659aee7b

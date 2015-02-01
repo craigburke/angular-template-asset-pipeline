@@ -5,3 +5,16 @@ core/build
 core/gradle.properties
 
 grails-plugin/target
+
+# IDEA
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+
+# Grails
+target
+out
+*.zip
+plugin.xml
