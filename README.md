@@ -26,9 +26,9 @@ Make sure the dependency is specified in both the buildscript and dependencies b
 ### Grails 
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
-	plugins {
-		runtime ":angular-template-asset-pipeline:2.0.4"
-	}
+plugins {
+	runtime ":angular-template-asset-pipeline:2.0.4"
+}
 ```
 *Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.*
 
