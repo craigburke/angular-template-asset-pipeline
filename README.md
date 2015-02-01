@@ -94,14 +94,14 @@ You can also change the template folder, disable the compression of your HTML te
 In gradle these settings can be changed in your **build.config**
 ```groovy
 assets {
-    configOptions = [
-    	angular : [
-    		templateFolder: "templates",		
-		compressHtml: true,
-		preserveHtmlComments: false,
-		includePathInName: false
-	]
-    ]
+	configOptions = [
+		angular : [
+			templateFolder: "templates",		
+			compressHtml: true,
+			preserveHtmlComments: false,
+			includePathInName: false
+		]
+    	]
 }
 ```
 
