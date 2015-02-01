@@ -1,5 +1,7 @@
 .gradle
-build
-gradle.properties
+
+core/.gradle
+core/build
+core/gradle.properties
 
 grails-plugin/target
