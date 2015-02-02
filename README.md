@@ -13,7 +13,6 @@ buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
         classpath "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
-        classpath "com.craigburke.angular:angular-annotate-asset-pipeline:2.0.2"
     }
 }
 
