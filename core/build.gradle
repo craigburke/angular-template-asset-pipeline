@@ -1,11 +1,11 @@
 plugins {
-	id "com.jfrog.bintray" version "1.0"
+    id "com.jfrog.bintray" version "1.0"
 }
 
 repositories {
-	mavenLocal()
-	jcenter()
-	mavenCentral()
+    mavenLocal()
+    jcenter()
+    mavenCentral()
 }
 
 group = 'com.craigburke.angular'
@@ -14,33 +14,33 @@ version = '2.0.4'
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
-configurations { 
-	provided 
-	testCompile { extendsFrom provided }
+configurations {
+    provided
+    testCompile { extendsFrom provided }
 }
 
 dependencies {
-	compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.12'
-	provided 'org.codehaus.groovy:groovy-all:2.3.6'
-	compile 'org.mozilla:rhino:1.7R4'
-	
-	compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
-	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.12'
+    provided 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile 'org.mozilla:rhino:1.7R4'
+
+    compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
 sourceSets {
-	main {
-		compileClasspath += configurations.provided
-	}
-} 
+    main {
+        compileClasspath += configurations.provided
+    }
+}
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.1'
+    gradleVersion = '2.1'
 }
 
 task sourcesJar(type: Jar) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
@@ -52,31 +52,31 @@ bintray {
     user = project.hasProperty('bintrayUsername') ? project.bintrayUsername : ''
     key = project.hasProperty('bintrayApiKey') ? project.bintrayApiKey : ''
     publications = ['maven']
-    
-	pkg {
+
+    pkg {
         repo = 'asset-pipeline'
         userOrg = 'craigburke'
         name = 'angular-template-asset-pipeline'
         licenses = ['Apache-2.0']
     }
-	
+
 }
 
 
 publishing {
-	publications {
-		maven(MavenPublication) {
-			artifactId 'angular-template-asset-pipeline'
-			pom.withXml {
-				asNode().children().last() + {
-					resolveStrategy = Closure.DELEGATE_FIRST
-					name 'angular-template-asset-pipeline'
+    publications {
+        maven(MavenPublication) {
+            artifactId 'angular-template-asset-pipeline'
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+                    name 'angular-template-asset-pipeline'
                     description 'AngularJS Templates extension for the Asset Pipeline Library.'
-					url 'https://github.com/craigburke/angular-template-asset-pipeline'
-					scm {
-						url 'https://github.com/craigburke/angular-template-asset-pipeline'
-						connection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
-						developerConnection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
+                    url 'https://github.com/craigburke/angular-template-asset-pipeline'
+                    scm {
+                        url 'https://github.com/craigburke/angular-template-asset-pipeline'
+                        connection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
+                        developerConnection 'scm:https://github.com/craigburke/angular-template-asset-pipeline.git'
                     }
                     licenses {
                         license {
@@ -90,15 +90,15 @@ publishing {
                             id 'craigburke'
                             name 'Craig Burke'
                             email 'craig@craigburke.com'
-                        	}
-                    	}
-					}
-			}		
-			from components.java
-			artifact sourcesJar
+                        }
+                    }
+                }
+            }
+            from components.java
+            artifact sourcesJar
             artifact javadocJar
-		}
-	}
+        }
+    }
 }
 
 bintrayUpload.dependsOn build, sourcesJar, javadocJar

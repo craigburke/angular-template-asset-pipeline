@@ -9,7 +9,8 @@ import spock.lang.Unroll
 
 class HtmlTemplateProcessorUnitSpec extends Specification {
 
-    @Shared AssetFile assetFile
+    @Shared
+    AssetFile assetFile
 
     def setup() {
         assetFile = new GenericAssetFile(path: 'foo/bar')
