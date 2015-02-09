@@ -41,7 +41,7 @@ class TemplateProcessorUtil {
 
         if (includePath) {
             def pathParts = getPathParts(file, templateFolder)
-            return "$File.separator${pathParts.join(File.separator)}$File.separator${fileName}"
+            return "/${pathParts.join('/')}/${fileName}"
         } else {
             return fileName
         }
