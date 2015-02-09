@@ -90,7 +90,7 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 You can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
 
 ### Gradle
-In gradle these settings can be changed in your **build.config**
+In gradle these settings can be changed in your **build.gradle**
 ```groovy
 assets {
 	configOptions = [
