@@ -8,8 +8,6 @@ import spock.lang.Shared
 
 @Unroll
 class TemplateProcessorUtilUnitSpec extends Specification {
-    @Shared
-            slash = File.separator
 
     def "covert string: #input to camel case"() {
         expect:
@@ -31,11 +29,11 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         TemplateProcessorUtil.getModuleName(assetFile, 'templates') == result
 
         where:
-        path                                                                                      || result
-        "my-app${slash}templates${slash}foo.tpl.html"                                             || 'myApp'
-        "my-APP${slash}templates${slash}foo.tpl.html"                                             || 'myApp'
-        "my-app${slash}super-COOL-directives${slash}templates${slash}foo.tpl.html"                || 'myApp.superCoolDirectives'
-        ['foo-bar1', 'foo-bAR2', 'foo-bAr3', 'FOO-bar4', 'templates', 'foo.tpl.html'].join(slash) || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        path                                                            || result
+        "my-app/templates/foo.tpl.html"                                 || 'myApp'
+        "my-APP/templates/foo.tpl.html"                                 || 'myApp'
+        "my-app/super-COOL-directives/templates/foo.tpl.html"           || 'myApp.superCoolDirectives'
+        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html"    || 'fooBar1.fooBar2.fooBar3.fooBar4'
     }
 
     def "covert path: #path to template name #withPathDescription"() {
@@ -46,13 +44,13 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         TemplateProcessorUtil.getTemplateName(assetFile, 'templates', withPath) == result
 
         where:
-        path                                                                                               | withPath || result
-        "my-app${slash}templates${slash}foo.tpl.html"                                                      | false    || 'foo.html'
-        "my-app${slash}templates${slash}foo.tpl.html"                                                      | true     || "${slash}my-app${slash}foo.html"
-        "my-app${slash}super-cool-directives${slash}templates${slash}directive.tpl.html"                   | false    || "directive.html"
-        "my-app${slash}super-cool-directives${slash}directive.html"                                        | true     || "${slash}my-app${slash}super-cool-directives${slash}directive.html"
-        "foo-bar1${slash}foo-bar2${slash}foo-bar3${slash}foo-bar4${slash}templates${slash}foobar.tpl.html" | false    || "foobar.html"
-        "foo-bar1${slash}foo-bar2${slash}foo-bar3${slash}foo-bar4${slash}foobar.html"                      | true     || "${slash}foo-bar1${slash}foo-bar2${slash}foo-bar3${slash}foo-bar4${slash}foobar.html"
+        path                                                            | withPath || result
+        "my-app/templates/foo.tpl.html"                                 | false    || 'foo.html'
+        "my-app/templates/foo.tpl.html"                                 | true     || "/my-app/foo.html"
+        "my-app/super-cool-directives/templates/directive.tpl.html"     | false    || "directive.html"
+        "my-app/super-cool-directives/directive.html"                   | true     || "/my-app/super-cool-directives/directive.html"
+        "foo-bar1/foo-bar2/foo-bar3/foo-bar4/templates/foobar.tpl.html" | false    || "foobar.html"
+        "foo-bar1/foo-bar2/foo-bar3/foo-bar4/foobar.html"               | true     || "/foo-bar1/foo-bar2/foo-bar3/foo-bar4/foobar.html"
 
         withPathDescription = withPath ? 'with path' : 'without path'
     }

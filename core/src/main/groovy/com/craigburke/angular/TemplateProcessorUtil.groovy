@@ -26,22 +26,15 @@ class TemplateProcessorUtil {
         html
     }
 
-    static List<String> getTokenizeFilePath(AssetFile file) {
-        file.path ? file.path.tokenize(Pattern.quote(File.separator)) : []
-    }
-
     static String getFileNameFromPath(AssetFile file) {
-        List<String> allPartsOfFile = getTokenizeFilePath file
-        allPartsOfFile ? allPartsOfFile[-1] : ''
+        List<String> pathParts = file.path.tokenize('/')
+        pathParts ? pathParts[-1] : ''
     }
 
     static List<String> getPathParts(AssetFile file, String templateFolder) {
-        List<String> allPartsOfFile = getTokenizeFilePath file
-        String actualFileName = allPartsOfFile ? allPartsOfFile[-1] : ''
-
-        allPartsOfFile - templateFolder - actualFileName
+        List<String> allPathParts = file.path.tokenize('/')
+        allPathParts - templateFolder - getFileNameFromPath(file)
     }
-
 
     static String getTemplateName(AssetFile file, String templateFolder, boolean includePath) {
         String fileName = getFileNameFromPath(file).replace('.tpl', '')
