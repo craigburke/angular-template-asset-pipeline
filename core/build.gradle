@@ -9,7 +9,7 @@ repositories {
 }
 
 group = 'com.craigburke.angular'
-version = '2.0.4'
+version = '2.0.5'
 
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'

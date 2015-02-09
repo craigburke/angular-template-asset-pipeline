@@ -12,12 +12,12 @@ Make sure your templates are contained within a **templates** folder within the 
 buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
-        classpath "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
+        classpath "com.craigburke.angular:angular-template-asset-pipeline:2.0.5"
     }
 }
 
 dependencies {
-	compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.4"
+	compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.5"
 }
 ```
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
@@ -26,7 +26,7 @@ Make sure the dependency is specified in both the buildscript and dependencies b
 Add the plugin to your **BuildConfig.groovy**:
 ```groovy
 plugins {
-	runtime ":angular-template-asset-pipeline:2.0.4"
+	runtime ":angular-template-asset-pipeline:2.0.5"
 }
 ```
 *Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.*
