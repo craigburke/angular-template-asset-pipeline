@@ -1,4 +1,5 @@
 = AngularJs Template Asset-Pipeline
+:version: 2.0.6
 
 image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[]
 
@@ -10,27 +11,28 @@ Make sure your templates are contained within a *templates* folder within the as
 
 === Gradle
 
-[source,groovy]
+[source,groovy,subs="+attributes"]
+----
 buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
-        classpath "com.craigburke.angular:angular-template-asset-pipeline:2.0.6"
+        classpath "com.craigburke.angular:angular-template-asset-pipeline:{version}"
     }
 }
 dependencies {
-	compile "com.craigburke.angular:angular-template-asset-pipeline:2.0.6"
+	compile "com.craigburke.angular:angular-template-asset-pipeline:{version}"
 }
-
+----
 
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
 
 === Grails
 
-[source,groovy]
+[source,groovy,subs="+attributes"]
 .BuildConfig.groovy
 ----
 plugins {
-	runtime ":angular-template-asset-pipeline:2.0.6"
+	runtime ":angular-template-asset-pipeline:{version}"
 }
 ----
 
