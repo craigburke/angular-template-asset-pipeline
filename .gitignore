@@ -7,6 +7,9 @@ core/build
 core/gradle.properties
 
 grails-plugin/target
+grails-plugin/plugin.xml
+grails-plugin/out
+grails-plugin/*.zip
 
 # IDEA
 .idea
@@ -15,9 +18,3 @@ grails-plugin/target
 *.iml
 *.ipr
 *.iws
-
-# Grails
-target
-out
-*.zip
-plugin.xml
