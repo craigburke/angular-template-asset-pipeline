@@ -11,7 +11,7 @@ Make sure your templates are contained within a *templates* folder within the as
 
 === Gradle
 
-[source,groovy,subs="+attributes"]
+[source,groovy,subs='attributes']
 buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
@@ -27,7 +27,7 @@ Make sure the dependency is specified in both the buildscript and dependencies b
 
 === Grails
 
-[source,groovy,subs="+attributes"]
+[source,groovy,subs='attributes']
 .BuildConfig.groovy
 ----
 plugins {
