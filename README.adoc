@@ -30,7 +30,7 @@ Make sure the dependency is specified in both the buildscript and dependencies b
 .BuildConfig.groovy
 ----
 plugins {
-	runtime ":angular-template-asset-pipeline:{version}"
+	runtime ":angular-template-asset-pipeline:2.0.6"
 }
 ----
 
