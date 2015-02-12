@@ -1,7 +1,7 @@
 :version: 2.0.6
 = AngularJs Template Asset-Pipeline
 
-image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[]
+image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[link="https://codeship.com/projects/60441"]
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
 
