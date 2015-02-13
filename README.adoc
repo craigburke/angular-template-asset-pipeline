@@ -12,6 +12,8 @@ Make sure your templates are contained within a *templates* folder within the as
 === Gradle
 
 [source,groovy,subs='attributes']
+.build.gradle
+----
 buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
@@ -21,7 +23,7 @@ buildscript {
 dependencies {
 	compile "com.craigburke.angular:angular-template-asset-pipeline:{version}"
 }
-
+----
 
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
 
@@ -35,7 +37,7 @@ plugins {
 }
 ----
 
-*Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.*
+IMPORTANT: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.
 
 == How it works
 
@@ -49,14 +51,15 @@ For example a file located at
 ```
 
 Will generate javascript like this:
-```javascript
+[source,javascript]
+----
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
 	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
 }]);
-```
+----
 This allows you to reference your template by just using the file name (without the .tpl).
 
-**Note:** this requires that the module **myApp.appSection** was previously defined in your JavaScript.
+NOTE: this requires that the module **myApp.appSection** was previously defined in your JavaScript.
 
 == Example project
 Here's an example of how you might use this plugin in a project.
