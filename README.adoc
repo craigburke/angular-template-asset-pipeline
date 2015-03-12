@@ -1,7 +1,7 @@
 :version: 2.0.6
 = AngularJs Template Asset-Pipeline
 
-image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[]
+image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[link="https://codeship.com/projects/60441"]
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
 
@@ -9,9 +9,11 @@ The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-
 
 Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm*
 
-=== Gradle
+=== Gradle / Grails 3
 
-[source,groovy,subs="+attributes"]
+[source,groovy,subs='attributes']
+.build.gradle
+----
 buildscript {
     dependencies {
         classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
@@ -21,13 +23,13 @@ buildscript {
 dependencies {
 	compile "com.craigburke.angular:angular-template-asset-pipeline:{version}"
 }
-
+----
 
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
 
-=== Grails
+=== Grails 2
 
-[source,groovy,subs="+attributes"]
+[source,groovy,subs='attributes']
 .BuildConfig.groovy
 ----
 plugins {
@@ -35,7 +37,7 @@ plugins {
 }
 ----
 
-*Note: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.*
+NOTE: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.
 
 == How it works
 
@@ -49,14 +51,15 @@ For example a file located at
 ```
 
 Will generate javascript like this:
-```javascript
+[source,javascript]
+----
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
 	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
 }]);
-```
+----
 This allows you to reference your template by just using the file name (without the .tpl).
 
-**Note:** this requires that the module **myApp.appSection** was previously defined in your JavaScript.
+NOTE: this requires that the module **myApp.appSection** was previously defined in your JavaScript.
 
 == Example project
 Here's an example of how you might use this plugin in a project.
