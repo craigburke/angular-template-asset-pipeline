@@ -9,7 +9,7 @@ The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-
 
 Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm*
 
-=== Gradle
+=== Gradle / Grails 3
 
 [source,groovy,subs='attributes']
 .build.gradle
@@ -27,7 +27,7 @@ dependencies {
 
 Make sure the dependency is specified in both the buildscript and dependencies blocks.
 
-=== Grails
+=== Grails 2
 
 [source,groovy,subs='attributes']
 .BuildConfig.groovy
