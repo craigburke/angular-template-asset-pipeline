@@ -52,11 +52,13 @@ class TemplateProcessorUtil {
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {
-        """\
+        String templateJs = """\
 			angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
 				\$templateCache.put('${templateName}', '${content}');
 			}]);
-		""".stripIndent()
+		"""
+        
+        templateJs.stripIndent()
     }
 
     static String toCamelCase(String input) {
