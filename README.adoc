@@ -98,7 +98,7 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 }]);
 ----
 
-You can also set the **moduleBaseName** property that will start each calculated module name.
+You can also set the **moduleNameBase** property that will start each calculated module name.
 For example if we set the value to **myApp** then a file located at:
 `/assets/javascripts/app-section/templates/index.tpl.htm`
 
@@ -124,7 +124,7 @@ assets {
 	configOptions = [
 		angular : [
 			templateFolder: 'templates',		
-			moduleBaseName: '',
+			moduleNameBase: '',
 			compressHtml: true,
 			preserveHtmlComments: false,
 			includePathInName: false
@@ -146,7 +146,7 @@ grails {
 		angular {
 			// Defaults
 			templateFolder = 'templates'
-			moduleBaseName = ''			
+			moduleNameBase = ''			
 			compressHtml = true
 			preserveHtmlComments = false
 			includePathInName = false
