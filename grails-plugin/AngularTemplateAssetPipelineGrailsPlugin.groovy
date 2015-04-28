@@ -1,6 +1,6 @@
 class AngularTemplateAssetPipelineGrailsPlugin {
 	
-    def version = "2.0.7"
+    def version = "2.1.0"
     def grailsVersion = "2.0 > *"
 
     def title = "AngularJS Template Asset-Pipeline Plugin"

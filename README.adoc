@@ -1,4 +1,4 @@
-:version: 2.0.7
+:version: 2.1.0
 = AngularJs Template Asset-Pipeline
 
 image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[link="https://codeship.com/projects/60441"]
@@ -98,7 +98,21 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 }]);
 ----
 
-You can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
+You can also set the **moduleBaseName** property that will start each calculated module name.
+For example if we set the value to **myApp** then a file located at:
+`/assets/javascripts/app-section/templates/index.tpl.htm`
+
+Will then generate javascript like this:
+
+[source,javascript]
+----
+angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
+        $templateCache.put('/index.htm', '<h1>Hello World!</h1>');
+}]);
+----
+Note that unlike the example above you didn't have to put your templates within a my-app folder.
+
+In addition to those settings, you can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
 
 === Gradle
 In gradle these settings can be changed in your *build.gradle*
@@ -109,7 +123,8 @@ In gradle these settings can be changed in your *build.gradle*
 assets {
 	configOptions = [
 		angular : [
-			templateFolder: "templates",		
+			templateFolder: 'templates',		
+			moduleBaseName: '',
 			compressHtml: true,
 			preserveHtmlComments: false,
 			includePathInName: false
@@ -130,7 +145,8 @@ grails {
 	assets {
 		angular {
 			// Defaults
-			templateFolder = "templates"			
+			templateFolder = 'templates'
+			moduleBaseName = ''			
 			compressHtml = true
 			preserveHtmlComments = false
 			includePathInName = false

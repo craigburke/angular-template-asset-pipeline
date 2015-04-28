@@ -15,9 +15,9 @@ class HTMLTemplateProcessor {
     def process(String input, AssetFile assetFile) {
         Map config = (Map) AssetPipelineConfigHolder.config?.angular
 
-        String templateFolder = config?.templateFolder ?: "templates"
-
-        String moduleName = getModuleName(assetFile, templateFolder)
+        String templateFolder = config?.templateFolder ?: 'templates'
+        String moduleNameBase = config?.moduleNameBase ?: ''
+        String moduleName = getModuleName(assetFile, moduleNameBase, templateFolder)
 
         boolean includePathInName = config?.containsKey('includePathInName') ? config.includePathInName : false
         String templateName = getTemplateName(assetFile, templateFolder, includePathInName)
