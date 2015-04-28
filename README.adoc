@@ -7,9 +7,7 @@ The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-
 
 == Getting started
 
-Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm* 
-
-NOTE: *tpl.html* doesn't work at the moment (it's being worked on). In the meantime, *.tpl.htm* will still work as expected.
+Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm* or *tpl.html* 
 
 === Gradle / Grails 3
 
