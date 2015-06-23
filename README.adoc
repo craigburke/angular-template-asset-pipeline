@@ -5,11 +5,11 @@ image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
 
-NOTE: starting with version 2.2.0 the default for the config setting **includePathInName** is true.
+NOTE: Starting with version 2.2.0 the default for the config setting **includePathInName** is true.
 
 == Getting started
 
-Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm* or *tpl.html* 
+Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm* or *.tpl.html* 
 
 === Gradle / Grails 3
 
@@ -86,7 +86,8 @@ angular.module('myApp.appSection', ['ngRoute'])
 
 == Configuration
 
-You can set the **moduleBaseName** property that will start each calculated module name.
+==== moduleBaseName
+You can set the **moduleBaseName** property that will set the base of each calculated module name.
 For example if we set the value to **myApp** then a file located at:
 `/assets/javascripts/app-section/templates/index.tpl.htm`
 
@@ -100,6 +101,7 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 ----
 Note that **myApp.** was added to the front of the module name.
 
+==== includePathInName
 If you want to refer to a template but just its file name, you can change the **includePathInName.** 
 
 With the setting set to false, a file located at
