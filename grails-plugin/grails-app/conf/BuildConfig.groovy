@@ -13,11 +13,11 @@ grails.project.dependency.resolution = {
         grailsCentral()
         grailsPlugins()
         mavenCentral()
-	jcenter()
+	    jcenter()
     }
 
     dependencies {
-	compile "com.craigburke.angular:angular-template-asset-pipeline:2.1.0"
+	    compile "com.craigburke.angular:angular-template-asset-pipeline:2.2.0"
     }
     plugins {
         build(":release:3.0.1", ":rest-client-builder:1.0.3",":tomcat:7.0.53") {

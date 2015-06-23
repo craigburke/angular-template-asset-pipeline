@@ -1,9 +1,11 @@
-:version: 2.1.0
+:version: 2.2.0
 = AngularJs Template Asset-Pipeline
 
 image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[link="https://codeship.com/projects/60441"]
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
+
+NOTE: starting with version 2.2.0 the default for the config setting **includePathInName** is true.
 
 == Getting started
 
@@ -54,10 +56,10 @@ Will generate javascript like this:
 [source,javascript]
 ----
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
-	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
+	$templateCache.put('/my-app/app-section/index.htm', '<h1>Hello World!</h1>');
 }]);
 ----
-This allows you to reference your template by just using the file name (without the .tpl).
+This allows you to reference your template by just using the path (without the .tpl).
 
 NOTE: this requires that the module **myApp.appSection** was previously defined in your JavaScript.
 
@@ -75,7 +77,7 @@ angular.module('myApp.appSection', ['ngRoute'])
 	.config(function($routeProvider) {
 	      $routeProvider
 	          .when('/index', {
-	              templateUrl: 'index.htm'
+	              templateUrl: '/my-app/app-section/index.htm'
 	          })
 	          .otherwise({redirectTo: '/index'});
 	});
@@ -84,21 +86,7 @@ angular.module('myApp.appSection', ['ngRoute'])
 
 == Configuration
 
-If you run into naming collisions with your template names, you can opt to include the full path in the name with the **includePathInName** setting. 
-
-With the setting set to true, a file located at
-`/assets/javascripts/my-app/app-section/templates/index.tpl.htm`
-
-Will then generate javascript like this:
-
-[source,javascript]
-----
-angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
-	$templateCache.put('/my-app/app-section/index.htm', '<h1>Hello World!</h1>');
-}]);
-----
-
-You can also set the **moduleBaseName** property that will start each calculated module name.
+You can set the **moduleBaseName** property that will start each calculated module name.
 For example if we set the value to **myApp** then a file located at:
 `/assets/javascripts/app-section/templates/index.tpl.htm`
 
@@ -107,10 +95,25 @@ Will then generate javascript like this:
 [source,javascript]
 ----
 angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
-        $templateCache.put('/index.htm', '<h1>Hello World!</h1>');
+        $templateCache.put('/app-section/index.htm', '<h1>Hello World!</h1>');
 }]);
 ----
-Note that unlike the example above you didn't have to put your templates within a my-app folder.
+Note that **myApp.** was added to the front of the module name.
+
+If you want to refer to a template but just its file name, you can change the **includePathInName.** 
+
+With the setting set to false, a file located at
+`/assets/javascripts/my-app/app-section/templates/index.tpl.htm`
+
+Will then generate javascript like this:
+
+[source,javascript]
+----
+angular.module('myApp.appSection').run(['$templateCache', function($templateCache) {
+	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
+}]);
+----
+WARNING: it's important to make sure you file name are unique to avoid collisions 
 
 In addition to those settings, you can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
 
@@ -127,7 +130,7 @@ assets {
 			moduleBaseName: '',
 			compressHtml: true,
 			preserveHtmlComments: false,
-			includePathInName: false
+			includePathInName: true
 		]
 	]
 }
@@ -149,7 +152,7 @@ grails {
 			moduleBaseName = ''			
 			compressHtml = true
 			preserveHtmlComments = false
-			includePathInName = false
+			includePathInName = true
 		}
 	}
 }
