@@ -127,7 +127,7 @@ assets {
 	configOptions = [
 		angular : [
 			templateFolder: 'templates',		
-			moduleBaseName: '',
+			moduleNameBase: '',
 			compressHtml: true,
 			preserveHtmlComments: false,
 			includePathInName: true
@@ -140,7 +140,6 @@ assets {
 
 In Grails these settings can be set in your *Config.groovy*
 
-
 [source,groovy]
 .Config.groovy
 ----
@@ -149,7 +148,7 @@ grails {
 		angular {
 			// Defaults
 			templateFolder = 'templates'
-			moduleBaseName = ''			
+			moduleNameBase = ''			
 			compressHtml = true
 			preserveHtmlComments = false
 			includePathInName = true
