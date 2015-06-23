@@ -19,7 +19,7 @@ class HTMLTemplateProcessor {
         String moduleNameBase = config?.moduleNameBase ?: ''
         String moduleName = getModuleName(assetFile, moduleNameBase, templateFolder)
 
-        boolean includePathInName = config?.containsKey('includePathInName') ? config.includePathInName : false
+        boolean includePathInName = config?.containsKey('includePathInName') ? config.includePathInName : true
         String templateName = getTemplateName(assetFile, templateFolder, includePathInName)
 
         boolean compressHtml = config?.containsKey('compressHtml') ? config.compressHtml : true
