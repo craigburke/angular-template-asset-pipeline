@@ -1,4 +1,4 @@
-:version: 2.2.1
+:version: 2.2.2
 = AngularJs Template Asset-Pipeline
 
 image::https://codeship.com/projects/5e8740f0-8c5d-0132-b104-6e5f8c02ac8f/status?branch=master[link="https://codeship.com/projects/60441"]

@@ -13,17 +13,17 @@ class HTMLTemplateProcessor {
     HTMLTemplateProcessor(AssetCompiler precompiler) {}
 
     def process(String input, AssetFile assetFile) {
-        Map config = (Map) AssetPipelineConfigHolder.config?.angular
+        Map config = (Map)AssetPipelineConfigHolder.config?.angular ?: [:]
 
-        String templateFolder = config?.templateFolder ?: 'templates'
-        String moduleNameBase = config?.moduleNameBase ?: ''
+        String templateFolder = config.containsKey('templateFolder') ? config.templateFolder : 'templates'
+        String moduleNameBase = config.containsKey('moduleNameBase') ? config.moduleNameBase : ''
         String moduleName = getModuleName(assetFile, moduleNameBase, templateFolder)
 
-        boolean includePathInName = config?.containsKey('includePathInName') ? config.includePathInName : true
+        boolean includePathInName = config.containsKey('includePathInName') ? config.includePathInName : true
         String templateName = getTemplateName(assetFile, templateFolder, includePathInName)
 
-        boolean compressHtml = config?.containsKey('compressHtml') ? config.compressHtml : true
-        boolean preserveHtmlComments = config?.containsKey('preserveHtmlComments') ? config.preserveHtmlComments : false
+        boolean compressHtml = config.containsKey('compressHtml') ? config.compressHtml : true
+        boolean preserveHtmlComments = config.containsKey('preserveHtmlComments') ? config.preserveHtmlComments : false
         String content = formatHtml(input.toString(), compressHtml, preserveHtmlComments)
 
         getTemplateJs(moduleName, templateName, content)
