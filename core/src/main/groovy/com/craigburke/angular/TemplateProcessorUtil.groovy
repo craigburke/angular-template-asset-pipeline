@@ -41,9 +41,9 @@ class TemplateProcessorUtil {
 
         if (includePath) {
             def pathParts = getPathParts(file, templateFolder)
-            return "/${pathParts.join('/')}/${fileName}"
+            "/${pathParts? (pathParts.join('/') + '/') : ''}${fileName}".toString()
         } else {
-            return fileName
+            fileName
         }
     }
 
@@ -53,13 +53,9 @@ class TemplateProcessorUtil {
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {
-        String templateJs = """\
-			angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
-				\$templateCache.put('${templateName}', '${content}');
-			}]);
-		"""
-        
-        templateJs.stripIndent()
+       """|angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
+          |    \$templateCache.put('${templateName}', '${content}');
+          |}]);""".stripMargin()
     }
 
     static String toCamelCase(String input) {
