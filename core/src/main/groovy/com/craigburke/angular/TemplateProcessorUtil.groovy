@@ -53,9 +53,12 @@ class TemplateProcessorUtil {
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {
-       """|angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
-          |    \$templateCache.put('${templateName}', '${content}');
-          |}]);""".stripMargin()
+       String templateJs = """\
+            |angular.module('${moduleName}').run(['\$templateCache', function(\$templateCache) {
+            |    \$templateCache.put('${templateName}', '${content}');
+            |}]);"""
+
+         templateJs.stripMargin()
     }
 
     static String toCamelCase(String input) {
