@@ -13,7 +13,7 @@ apply plugin: 'maven-publish'
 
 targetCompatibility = 1.7
 group = 'com.craigburke.angular'
-version = '2.2.4'
+version = '2.2.5'
 
 configurations {
     provided
@@ -22,7 +22,7 @@ configurations {
 
 dependencies {
     compile 'com.bertramlabs.plugins:asset-pipeline-core:2.0.12'
-    provided 'org.codehaus.groovy:groovy-all:2.0.6'
+    provided 'org.codehaus.groovy:groovy-all:2.1.9'
     compile 'org.mozilla:rhino:1.7R4'
 
     compile 'com.googlecode.htmlcompressor:htmlcompressor:1.5.2'
