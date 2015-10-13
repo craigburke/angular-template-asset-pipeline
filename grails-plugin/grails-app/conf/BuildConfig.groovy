@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-	    compile "com.craigburke.angular:angular-template-asset-pipeline:2.2.5"
+	    compile "com.craigburke.angular:angular-template-asset-pipeline:2.2.6"
     }
     plugins {
         build(":release:3.0.1", ":rest-client-builder:1.0.3",":tomcat:7.0.53") {
