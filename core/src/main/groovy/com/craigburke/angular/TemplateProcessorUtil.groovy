@@ -47,9 +47,13 @@ class TemplateProcessorUtil {
         }
     }
 
-    static String getModuleName(AssetFile file, String nameBase, String templateFolder) {
-        String name = getPathParts(file, templateFolder).collect { String pathPart -> toCamelCase pathPart }.join('.')
-        (nameBase ?: '') + (nameBase && name ? '.' : '') + name
+    static String getModuleName(AssetFile file, String nameBase, String templateFolder, Boolean includeSectionInModuleName) {
+        if(includeSectionInModuleName){
+            String name = getPathParts(file, templateFolder).collect { String pathPart -> toCamelCase pathPart }.join('.')
+            (nameBase ?: '') + (nameBase && name ? '.' : '') + name
+        }else{
+            nameBase
+        }
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {
