@@ -62,8 +62,6 @@ class TemplateProcessorUtil {
     }
 
     static String toCamelCase(String input) {
-        input = input?.toLowerCase()
-
         final String separator = "-"
 
         if (input?.contains('_')) {
@@ -74,6 +72,7 @@ class TemplateProcessorUtil {
             return input
         }
 
+        input = input.toLowerCase()
         def result = new StringBuilder()
         input.split(Pattern.quote(separator)).eachWithIndex { String part, int index ->
             if (index > 0 && part?.length() != 0) {
