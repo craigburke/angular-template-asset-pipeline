@@ -1,4 +1,5 @@
-:version: 2.2.6
+:apVersion: 2.6.11
+:version: 2.2.7
 = AngularJs Template Asset-Pipeline
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
@@ -16,16 +17,15 @@ Make sure your templates are contained within a *templates* folder within the as
 ----
 buildscript {
     dependencies {
-        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:2.0.20'
-        classpath "com.craigburke.angular:angular-template-asset-pipeline:{version}"
+        classpath 'com.bertramlabs.plugins:asset-pipeline-gradle:{apVersion}'
     }
 }
+
 dependencies {
-	compile "com.craigburke.angular:angular-template-asset-pipeline:{version}"
+	assets "com.craigburke.angular:angular-template-asset-pipeline:{version}"
 }
 ----
 
-Make sure the dependency is specified in both the buildscript and dependencies blocks.
 
 === Grails 2
 
