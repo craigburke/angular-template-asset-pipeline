@@ -115,6 +115,23 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 ----
 WARNING: it's important to make sure you file name are unique to avoid collisions 
 
+==== includeSectionInModuleName
+If you want to add all the templates to your base app, you can change the **includeSectionInModuleName.**
+
+With the setting set to false, a file located at
+`/assets/javascripts/my-app/app-section/templates/index.tpl.htm`
+and
+`moduleNameBase = 'myApp'`
+
+Will then generate javascript like this:
+
+[source,javascript]
+----
+angular.module('myApp').run(['$templateCache', function($templateCache) {
+	$templateCache.put('index.htm', '<h1>Hello World!</h1>');
+}]);
+----
+
 In addition to those settings, you can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
 
 === Gradle

@@ -26,30 +26,38 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         AssetFile assetFile = new GenericAssetFile(path: path)
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, '', 'templates') == result
+        TemplateProcessorUtil.getModuleName(assetFile, '', 'templates', includeSectionInModuleName) == result
 
         where:
-        path                                                            || result
-        "my-app/templates/foo.tpl.html"                                 || 'myApp'
-        "my-APP/templates/foo.tpl.html"                                 || 'myApp'
-        "my-app/super-COOL-directives/templates/foo.tpl.html"           || 'myApp.superCoolDirectives'
-        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html"    || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        path                                                         | includeSectionInModuleName || result
+        "my-app/templates/foo.tpl.html"                              | true                       || 'myApp'
+        "my-APP/templates/foo.tpl.html"                              | true                       || 'myApp'
+        "my-app/super-COOL-directives/templates/foo.tpl.html"        | true                       || 'myApp.superCoolDirectives'
+        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html" | true                       || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        "my-app/templates/foo.tpl.html"                              | false                      || ''
+        "my-APP/templates/foo.tpl.html"                              | false                      || ''
+        "my-app/super-COOL-directives/templates/foo.tpl.html"        | false                      || ''
+        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html" | false                      || ''
     }
-    
+
     def "module name with moduleBaseName set to #baseName"() {
         given:
         AssetFile assetFile = new GenericAssetFile(path: path)
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, baseName, 'templates') == result
+        TemplateProcessorUtil.getModuleName(assetFile, baseName, 'templates', includeSectionInModuleName) == result
 
         where:
-        path                                                            | baseName   || result
-        "templates/foo.tpl.html"                                        | 'fooApp'   || 'fooApp'
-        "bar/templates/foo.tpl.html"                                    | 'fooApp'   || 'fooApp.bar'
-        "templates/foo.tpl.html"                                        | ''         || ''
-        "bar/templates/foo.tpl.html"                                    | ''         || 'bar'
-        
+        path                         | baseName | includeSectionInModuleName || result
+        "templates/foo.tpl.html"     | 'fooApp' | true                       || 'fooApp'
+        "bar/templates/foo.tpl.html" | 'fooApp' | true                       || 'fooApp.bar'
+        "templates/foo.tpl.html"     | ''       | true                       || ''
+        "bar/templates/foo.tpl.html" | ''       | true                       || 'bar'
+        "templates/foo.tpl.html"     | 'fooApp' | false                      || 'fooApp'
+        "bar/templates/foo.tpl.html" | 'fooApp' | false                      || 'fooApp'
+        "templates/foo.tpl.html"     | ''       | false                      || ''
+        "bar/templates/foo.tpl.html" | ''       | false                      || ''
+
     }
 
     def "covert path: #path to template name #withPathDescription"() {
