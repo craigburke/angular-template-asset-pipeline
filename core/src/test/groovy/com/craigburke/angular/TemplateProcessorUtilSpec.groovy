@@ -16,9 +16,9 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         where:
         input                      || result
         'foo-bar'                  || 'fooBar'
-        'FOO-bar'                  || 'fooBar'
-        'FOO_BAR'                  || 'fooBar'
-        'why_WOULD-ANyoNE_do-THIS' || 'whyWouldAnyoneDoThis'
+        'FOO-bar'                  || 'fOOBar'
+        'FOO_BAR'                  || 'fOOBAR'
+        'why_WOULD-ANyoNE_do-THIS' || 'whyWOULDANyoNEDoTHIS'
     }
 
     def "covert path: #path to module name"() {
@@ -29,11 +29,15 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         TemplateProcessorUtil.getModuleName(assetFile, '', 'templates') == result
 
         where:
-        path                                                            || result
-        "my-app/templates/foo.tpl.html"                                 || 'myApp'
-        "my-APP/templates/foo.tpl.html"                                 || 'myApp'
-        "my-app/super-COOL-directives/templates/foo.tpl.html"           || 'myApp.superCoolDirectives'
-        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html"    || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        path                                                         || result
+        "my-app/templates/foo.tpl.html"                              || 'myApp'
+        "my-APP/templates/foo.tpl.html"                              || 'myAPP'
+
+        "my-app/super-COOL-directives/templates/foo.tpl.html"        || 'myApp.superCOOLDirectives'
+        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html" || 'fooBar1.fooBAR2.fooBAr3.fOOBar4'
+        "foo-bar1/foo-bAR2/foo-bAr3/FOO-bar4/templates/foo.tpl.html" || 'fooBar1.fooBAR2.fooBAr3.fOOBar4'
+        "fooBar1/fooBar2/fooBar3/fooBar4/foo.tpl.html"               || 'fooBar1.fooBar2.fooBar3.fooBar4'
+        "fooBar1/fooBar2/fooBar3/fooBar4/templates/foo.tpl.html"     || 'fooBar1.fooBar2.fooBar3.fooBar4'
     }
     
     def "module name with moduleBaseName set to #baseName"() {
@@ -70,4 +74,7 @@ class TemplateProcessorUtilUnitSpec extends Specification {
 
         withPathDescription = withPath ? 'with path' : 'without path'
     }
+
+
+
 }

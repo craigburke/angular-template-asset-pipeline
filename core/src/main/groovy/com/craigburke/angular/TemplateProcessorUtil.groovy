@@ -72,13 +72,12 @@ class TemplateProcessorUtil {
             return input
         }
 
-        input = input.toLowerCase()
         def result = new StringBuilder()
         input.split(Pattern.quote(separator)).eachWithIndex { String part, int index ->
             if (index > 0 && part?.length() != 0) {
                 result.append(part.substring(0, 1).toUpperCase() + part.substring(1))
             } else {
-                result.append(part ?: "")
+                result.append(part.substring(0, 1).toLowerCase() + part.substring(1) ?: "")
             }
         }
 
