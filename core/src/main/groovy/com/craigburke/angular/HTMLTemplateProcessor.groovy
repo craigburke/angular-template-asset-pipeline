@@ -17,7 +17,8 @@ class HTMLTemplateProcessor {
 
         String templateFolder = config.containsKey('templateFolder') ? config.templateFolder : 'templates'
         String moduleNameBase = config.containsKey('moduleNameBase') ? config.moduleNameBase : ''
-        String moduleName = getModuleName(assetFile, moduleNameBase, templateFolder)
+        boolean convertUnderscores = config.containsKey('convertUnderscores') ? config.convertUnderscores : true
+        String moduleName = getModuleName(assetFile, moduleNameBase, templateFolder, convertUnderscores)
 
         boolean includePathInName = config.containsKey('includePathInName') ? config.includePathInName : true
         String templateName = getTemplateName(assetFile, templateFolder, includePathInName)

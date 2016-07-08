@@ -47,8 +47,8 @@ class TemplateProcessorUtil {
         }
     }
 
-    static String getModuleName(AssetFile file, String nameBase, String templateFolder) {
-        String name = getPathParts(file, templateFolder).collect { String pathPart -> toCamelCase pathPart }.join('.')
+    static String getModuleName(AssetFile file, String nameBase, String templateFolder, boolean convertUnderscores) {
+        String name = getPathParts(file, templateFolder).collect { String pathPart -> toCamelCase(pathPart, convertUnderscores) }.join('.')
         (nameBase ?: '') + (nameBase && name ? '.' : '') + name
     }
 
@@ -61,10 +61,10 @@ class TemplateProcessorUtil {
          templateJs.stripMargin()
     }
 
-    static String toCamelCase(String input) {
+    static String toCamelCase(String input, boolean convertUnderscores) {
         final String separator = "-"
 
-        if (input?.contains('_')) {
+        if (convertUnderscores && input?.contains('_')) {
             input = input.replace('_', separator)
         }
 
