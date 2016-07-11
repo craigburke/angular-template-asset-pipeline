@@ -11,14 +11,18 @@ class TemplateProcessorUtilUnitSpec extends Specification {
 
     def "covert string: #input to camel case"() {
         expect:
-        TemplateProcessorUtil.toCamelCase(input) == result
+        TemplateProcessorUtil.toCamelCase(input, convertUnderscores) == result
 
         where:
-        input                      || result
-        'foo-bar'                  || 'fooBar'
-        'FOO-bar'                  || 'fOOBar'
-        'FOO_BAR'                  || 'fOOBAR'
-        'why_WOULD-ANyoNE_do-THIS' || 'whyWOULDANyoNEDoTHIS'
+        input                      | convertUnderscores || result
+        'foo-bar'                  | true               || 'fooBar'
+        'FOO-bar'                  | true               || 'fOOBar'
+        'FOO_BAR'                  | true               || 'fOOBAR'
+        'why_WOULD-ANyoNE_do-THIS' | true               || 'whyWOULDANyoNEDoTHIS'
+        'foo-bar'                  | false              || 'fooBar'
+        'FOO-bar'                  | false              || 'fOOBar'
+        'FOO_BAR'                  | false              || 'FOO_BAR'
+        'why_WOULD-ANyoNE_do-THIS' | false              || 'why_WOULDANyoNE_doTHIS'
     }
 
     def "covert path: #path to module name"() {
@@ -26,7 +30,7 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         AssetFile assetFile = new GenericAssetFile(path: path)
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, '', 'templates') == result
+        TemplateProcessorUtil.getModuleName(assetFile, '', 'templates', true) == result
 
         where:
         path                                                         || result
@@ -45,7 +49,7 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         AssetFile assetFile = new GenericAssetFile(path: path)
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, baseName, 'templates') == result
+        TemplateProcessorUtil.getModuleName(assetFile, baseName, 'templates', true) == result
 
         where:
         path                                                            | baseName   || result
