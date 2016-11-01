@@ -28,9 +28,10 @@ class TemplateProcessorUtilUnitSpec extends Specification {
     def "covert path: #path to module name"() {
         given:
         AssetFile assetFile = new GenericAssetFile(path: path)
+        ProcessorConfig config = new ProcessorConfig()
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, '', 'templates', true) == result
+        TemplateProcessorUtil.getModuleName(assetFile, config) == result
 
         where:
         path                                                         || result
@@ -47,9 +48,10 @@ class TemplateProcessorUtilUnitSpec extends Specification {
     def "module name with moduleBaseName set to #baseName"() {
         given:
         AssetFile assetFile = new GenericAssetFile(path: path)
+        ProcessorConfig config = new ProcessorConfig(moduleBaseName: baseName)
 
         expect:
-        TemplateProcessorUtil.getModuleName(assetFile, baseName, 'templates', true) == result
+        TemplateProcessorUtil.getModuleName(assetFile, config) == result
 
         where:
         path                                                            | baseName   || result

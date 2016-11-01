@@ -2,9 +2,9 @@
 
 .gradle
 
-core/.gradle
-core/build
-core/gradle.properties
+.gradle
+build
+gradle.properties
 
 grails-plugin/target
 grails-plugin/plugin.xml
