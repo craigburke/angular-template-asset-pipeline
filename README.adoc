@@ -122,24 +122,3 @@ assets {
 	]
 }
 ----
-
-=== Grails
-
-In Grails these settings can be set in your *Config.groovy*
-
-[source,groovy]
-.Config.groovy
-----
-grails {
-	assets {
-		angular {
-			// Defaults
-			templateFolder = 'templates'
-			moduleNameBase = ''			
-			compressHtml = true
-			preserveHtmlComments = false
-			includePathInName = true
-		}
-	}
-}
-----
