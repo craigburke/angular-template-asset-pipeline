@@ -16,7 +16,18 @@ class ProcessorConfig {
     ProcessorConfig(Map config = [:]) {
         templateModuleName = config.containsKey('templateModuleName') ? config.templateModuleName : ''
         templateFolder = config.containsKey('templateFolder') ? config.templateFolder : 'templates'
-        moduleBaseName = config.containsKey('moduleBaseName') ? config.moduleBaseName : ''
+
+        if (config.containsKey('moduleBaseName')) {
+            moduleBaseName = config.moduleNameBase
+        }
+        else if (config.containsKey('moduleNameBase')) {
+            // This is an alias because of a typo in the docs
+            moduleBaseName = config.moduleNameBase
+        }
+        else {
+            moduleBaseName = ''
+        }
+
         convertUnderscores = config.containsKey('convertUnderscores') ? config.convertUnderscores : true
         includePathInName = config.containsKey('includePathInName') ? config.includePathInName : true
         compressHtml = config.containsKey('compressHtml') ? config.compressHtml : true
