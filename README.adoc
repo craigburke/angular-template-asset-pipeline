@@ -2,7 +2,7 @@
 :version: 2.3.0
 = AngularJs Template Asset-Pipeline
 
-The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle and Grails projects.
+The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle projects.
 
 NOTE: Starting with version 2.2.0 the default for the config setting **includePathInName** is true.
 
@@ -10,7 +10,7 @@ NOTE: Starting with version 2.2.0 the default for the config setting **includePa
 
 Make sure your templates are contained within a *templates* folder within the assets folder and have the file extension *.tpl.htm* or *.tpl.html* 
 
-=== Gradle / Grails 3
+=== Setup
 
 [source,groovy,subs='attributes']
 .build.gradle
@@ -25,19 +25,6 @@ dependencies {
 	assets "com.craigburke.angular:angular-template-asset-pipeline:{version}"
 }
 ----
-
-
-=== Grails 2
-
-[source,groovy,subs='attributes']
-.BuildConfig.groovy
-----
-plugins {
-	runtime ":angular-template-asset-pipeline:{version}"
-}
-----
-
-NOTE: If you're not yet using Asset Pipeline 2.0+, then you can use version 1.4.2 of the plugin.
 
 == How it works
 
