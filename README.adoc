@@ -86,6 +86,12 @@ angular.module('myApp.appSection').run(['$templateCache', function($templateCach
 ----
 Note that **myApp.** was added to the front of the module name.
 
+==== convertUnderscores
+The **convertUnderscores** property controls whether an underscore in a folder name will be translated to a camel case equivalent.
+For example whether a file at `/assets/javascripts/my_app/app_section/foo.tpl.htm` will be put into a module name **myApp.appSection**
+or **my_app.app_section**
+
+
 ==== includePathInName
 If you want to refer to a template but just its file name, you can change the **includePathInName.** 
 
@@ -104,7 +110,7 @@ WARNING: it's important to make sure you file name are unique to avoid collision
 
 In addition to those settings, you can also change the template folder, disable the compression of your HTML templates, or preserve Html comments.
 
-=== Gradle
+=== Default Settings
 In gradle these settings can be changed in your *build.gradle*
 
 [source,groovy]
@@ -115,6 +121,7 @@ assets {
 		angular : [
 			templateFolder: 'templates',		
 			moduleNameBase: '',
+			convertUnderscores: true,
 			compressHtml: true,
 			preserveHtmlComments: false,
 			includePathInName: true
