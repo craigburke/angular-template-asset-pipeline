@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class ProcessorConfig {
 
+    final String templateModuleName
     final String templateFolder
     final String moduleBaseName
     final Boolean convertUnderscores
@@ -13,6 +14,7 @@ class ProcessorConfig {
     final Boolean preserveHtmlComments
 
     ProcessorConfig(Map config = [:]) {
+        templateModuleName = config.containsKey('templateModuleName') ? config.templateModuleName : ''
         templateFolder = config.containsKey('templateFolder') ? config.templateFolder : 'templates'
         moduleBaseName = config.containsKey('moduleBaseName') ? config.moduleBaseName : ''
         convertUnderscores = config.containsKey('convertUnderscores') ? config.convertUnderscores : true

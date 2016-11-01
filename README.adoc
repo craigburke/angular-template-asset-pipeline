@@ -91,6 +91,19 @@ The **convertUnderscores** property controls whether an underscore in a folder n
 For example whether a file at `/assets/javascripts/my_app/app_section/foo.tpl.htm` will be put into a module name **myApp.appSection**
 or **my_app.app_section**
 
+==== templateModuleName
+If you set the **templateModuleName** property than all templates will be placed in a single module (regardless of what the moduleBaseName is set to or
+what the path of the template file is). For example, if **templateModuleName** is set to `myTemplates`
+then a file located at `/assets/javascripts/app-section/templates/index.tpl.htm`
+
+Will generate javascript like:
+
+[source,javascript]
+----
+angular.module('myTemplates').run(['$templateCache', function($templateCache) {
+        $templateCache.put('/app-section/index.htm', '<h1>Hello World!</h1>');
+}]);
+----
 
 ==== includePathInName
 If you want to refer to a template but just its file name, you can change the **includePathInName.** 
@@ -121,6 +134,7 @@ assets {
 		angular : [
 			templateFolder: 'templates',		
 			moduleNameBase: '',
+			templateModuleName: '',
 			convertUnderscores: true,
 			compressHtml: true,
 			preserveHtmlComments: false,

@@ -48,8 +48,13 @@ class TemplateProcessorUtil {
     }
 
     static String getModuleName(AssetFile file, ProcessorConfig config) {
-        String name = getPathParts(file, config.templateFolder).collect { String pathPart -> toCamelCase(pathPart, config.convertUnderscores) }.join('.')
-        (config.moduleBaseName ?: '') + (config.moduleBaseName && name ? '.' : '') + name
+        if (config.templateModuleName) {
+            config.templateModuleName
+        }
+        else {
+            String name = getPathParts(file, config.templateFolder).collect { String pathPart -> toCamelCase(pathPart, config.convertUnderscores) }.join('.')
+            (config.moduleBaseName ?: '') + (config.moduleBaseName && name ? '.' : '') + name
+        }
     }
 
     static String getTemplateJs(String moduleName, String templateName, String content) {

@@ -59,7 +59,22 @@ class TemplateProcessorUtilUnitSpec extends Specification {
         "bar/templates/foo.tpl.html"                                    | 'fooApp'   || 'fooApp.bar'
         "templates/foo.tpl.html"                                        | ''         || ''
         "bar/templates/foo.tpl.html"                                    | ''         || 'bar'
-        
+    }
+
+    def "templateModule name overrides baseName #baseName and path #path"() {
+        given:
+        AssetFile assetFile = new GenericAssetFile(path: path)
+        ProcessorConfig config = new ProcessorConfig(templateModuleName: 'myTemplates', moduleBaseName: baseName)
+
+        expect:
+        TemplateProcessorUtil.getModuleName(assetFile, config) == 'myTemplates'
+
+        where:
+        path                                                            | baseName
+        "templates/foo.tpl.html"                                        | 'fooApp'
+        "bar/templates/foo.tpl.html"                                    | 'fooApp'
+        "templates/foo.tpl.html"                                        | ''
+        "bar/templates/foo.tpl.html"                                    | ''
     }
 
     def "covert path: #path to template name #withPathDescription"() {
