@@ -134,11 +134,12 @@ assets {
 		angular : [
 			templateFolder: 'templates',		
 			moduleNameBase: '',
+            includePathInName: true,
 			templateModuleName: '',
 			convertUnderscores: true,
 			compressHtml: true,
 			preserveHtmlComments: false,
-			includePathInName: true
+			preserveLineBreaks: false
 		]
 	]
 }

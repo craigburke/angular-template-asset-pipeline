@@ -9,22 +9,29 @@ import groovy.transform.CompileStatic
 @CompileStatic
 class TemplateProcessorUtil {
 
-    static String formatHtml(String html, boolean compressHtml, boolean preserveHtmlComments) {
-        if (compressHtml) {
-            HtmlCompressor compressor = new HtmlCompressor()
+    static String formatHtml(String html, ProcessorConfig config) {
 
-            if (preserveHtmlComments) {
-                compressor.removeComments = false
+        if (config.compressHtml) {
+            HtmlCompressor compressor = new HtmlCompressor(
+                removeComments: !config.preserveHtmlComments,
+                preserveLineBreaks: config.preserveLineBreaks
+            )
+            html = compressor.compress(html)
+            if (config.preserveLineBreaks) {
+                html = proccessLineBreaks(html, true)
             }
-
-            html = compressor.compress html
         }
         else {
-            html = html.replaceAll("(\r)?\n", " \\n")
+            html = proccessLineBreaks(html, config.preserveLineBreaks)
         }
 
         html = html.replace("'", "\\'")
         html
+    }
+
+    private static String proccessLineBreaks(String input, boolean preserve) {
+        String lineBreakReplacement = preserve ? " \\\\n" : ' '
+        input.replaceAll("(\r)?\n", lineBreakReplacement)
     }
 
     static String getFileNameFromPath(AssetFile file) {

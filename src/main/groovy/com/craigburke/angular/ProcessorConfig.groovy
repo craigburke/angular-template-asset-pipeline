@@ -10,8 +10,10 @@ class ProcessorConfig {
     final String moduleBaseName
     final Boolean convertUnderscores
     final Boolean includePathInName
+
     final Boolean compressHtml
     final Boolean preserveHtmlComments
+    final Boolean preserveLineBreaks
 
     ProcessorConfig(Map config = [:]) {
         templateModuleName = config.containsKey('templateModuleName') ? config.templateModuleName : ''
@@ -28,6 +30,7 @@ class ProcessorConfig {
             moduleBaseName = ''
         }
 
+        preserveLineBreaks = config.containsKey('preserveLineBreaks') ? config.preserveLineBreaks : false
         convertUnderscores = config.containsKey('convertUnderscores') ? config.convertUnderscores : true
         includePathInName = config.containsKey('includePathInName') ? config.includePathInName : true
         compressHtml = config.containsKey('compressHtml') ? config.compressHtml : true
