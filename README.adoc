@@ -1,5 +1,5 @@
 :apVersion: 2.6.11
-:version: 2.3.0
+:version: 2.4.0
 = AngularJs Template Asset-Pipeline
 
 The `angular-template-asset-pipeline` is an https://github.com/bertramdev/asset-pipeline-core[Asset Pipeline] module that provides angular template precompiler support for Gradle projects.
