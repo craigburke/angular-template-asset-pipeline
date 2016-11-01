@@ -18,7 +18,7 @@ class ProcessorConfig {
         templateFolder = config.containsKey('templateFolder') ? config.templateFolder : 'templates'
 
         if (config.containsKey('moduleBaseName')) {
-            moduleBaseName = config.moduleNameBase
+            moduleBaseName = config.moduleBaseName
         }
         else if (config.containsKey('moduleNameBase')) {
             // This is an alias because of a typo in the docs

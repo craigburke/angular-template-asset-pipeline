@@ -10,8 +10,6 @@ import groovy.transform.CompileStatic
 class TemplateProcessorUtil {
 
     static String formatHtml(String html, boolean compressHtml, boolean preserveHtmlComments) {
-        html = html.replace("'", "\\'")
-
         if (compressHtml) {
             HtmlCompressor compressor = new HtmlCompressor()
 
@@ -21,8 +19,11 @@ class TemplateProcessorUtil {
 
             html = compressor.compress html
         }
+        else {
+            html = html.replaceAll("(\r)?\n", " \\n")
+        }
 
-        html = html.replaceAll("(\r)?\n", " \\n")
+        html = html.replace("'", "\\'")
         html
     }
 
